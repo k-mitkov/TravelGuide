@@ -7,7 +7,7 @@ using Xamarin.Forms;
 namespace TravelGuide.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    public class LandmarkDetailViewModel : BaseViewModel
     {
         private string itemId;
         private string text;

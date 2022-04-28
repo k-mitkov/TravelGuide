@@ -7,12 +7,12 @@ using Xamarin.Forms;
 
 namespace TravelGuide.ViewModels
 {
-    public class NewItemViewModel : BaseViewModel
+    public class NewLandmarkViewModel : BaseViewModel
     {
         private string text;
         private string description;
 
-        public NewItemViewModel()
+        public NewLandmarkViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);

@@ -11,8 +11,11 @@ namespace TravelGuide
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(LandmarkDetailPage), typeof(LandmarkDetailPage));
+            Routing.RegisterRoute(nameof(NewLandmarkPage), typeof(NewLandmarkPage));
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
+            Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+            Routing.RegisterRoute(nameof(AccountPage), typeof(AccountPage));
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

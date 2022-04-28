@@ -4,12 +4,12 @@ using Xamarin.Forms;
 
 namespace TravelGuide.Views
 {
-    public partial class ItemDetailPage : ContentPage
+    public partial class LandmarkDetailPage : ContentPage
     {
-        public ItemDetailPage()
+        public LandmarkDetailPage()
         {
             InitializeComponent();
-            BindingContext = new ItemDetailViewModel();
+            BindingContext = new LandmarkDetailViewModel();
         }
     }
 }
