@@ -16,25 +16,28 @@ namespace TravelGuide.Database.Repositories
         #region Delclarations
 
         protected object lockObject = new object();
-        TravelGuideContext context;
+        private TravelGuideContext database;
+
+        private IGenericRepository<Comment> commentsRepository;
+        private IGenericRepository<Landmark> landmarksRepository;
+        private IGenericRepository<User> usersRepository;
+
         #endregion
 
         #region Constructor
 
         public RepositoryManager()
         {
-            context = new TravelGuideContext();
-            CommentsRepository = new GenericRepository<Comment>(lockObject);
-            LandmarksRepository = new GenericRepository<Landmark>(lockObject);
-            UsersRepository = new GenericRepository<User>(lockObject);
+            database = new TravelGuideContext();
         }
 
         #endregion
 
         #region Properties
-        public IGenericRepository<Comment> CommentsRepository { get; set; }
-        public IGenericRepository<Landmark> LandmarksRepository { get; set; }
-        public IGenericRepository<User> UsersRepository { get; set; }
+
+        public IGenericRepository<Comment> CommentsRepository => commentsRepository ?? (commentsRepository = new GenericRepository<Comment>(lockObject, database));
+        public IGenericRepository<Landmark> LandmarksRepository => landmarksRepository ?? (landmarksRepository = new GenericRepository<Landmark>(lockObject, database));
+        public IGenericRepository<User> UsersRepository => usersRepository ?? (usersRepository = new GenericRepository<User>(lockObject, database));
 
         #endregion
 
@@ -49,7 +52,7 @@ namespace TravelGuide.Database.Repositories
 
                 var properties = type.GetProperties();
 
-                var connection = context.Database.GetDbConnection();
+                var connection = database.Database.GetDbConnection();
 
                 if (connection.State != ConnectionState.Open)
                 {
@@ -103,7 +106,7 @@ namespace TravelGuide.Database.Repositories
         {
             try
             {
-                var connection = context.Database.GetDbConnection();
+                var connection = database.Database.GetDbConnection();
 
                 if (connection.State != ConnectionState.Open)
                 {

@@ -25,7 +25,7 @@ namespace TravelGuide.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=192.168.0.102;Database=TravelGuide;User Id=sa;Password=123456;");
+            optionsBuilder.UseSqlServer("Server = localhost ;Database = TravelGuide; User = sa; Trusted_Connection = True");
         }
 
         #endregion

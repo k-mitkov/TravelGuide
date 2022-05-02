@@ -21,10 +21,10 @@ namespace TravelGuide.Database.Repositories
 
         #region Constructor 
 
-        public GenericRepository(object lockObject)
+        public GenericRepository(object lockObject, TravelGuideContext database)
         {
             this.lockObject = lockObject;
-            database = new TravelGuideContext();
+            this.database = database;
             entities = database.Set<TEntity>();
         }
 

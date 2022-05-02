@@ -1,48 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using TravelGuide.Database.Entities;
-using TravelGuide.Database.Interfaces;
-using TravelGuide.Database.Repositories;
 
 namespace DBTest
 {
     class Program
     {
+        static HttpClient client = new HttpClient();
+        private static MediaTypeWithQualityHeaderValue _mediaTypeJson;
+
+
         static void Main(string[] args)
         {
 
-            IRepositoryManager repositoryManager = new RepositoryManager();
+            _mediaTypeJson = new MediaTypeWithQualityHeaderValue("application/json");
 
-            List<User> users = new List<User>();
+            client.BaseAddress = new Uri("https://localhost:5001/api/user/");
+            
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(_mediaTypeJson);
 
-            //Task.Run(async () => users = (await repositoryManager.UsersRepository.SelectAllAsync()).ToList()).Wait();
+            Task.Run(async () => await Get()).Wait();
 
-            string query = "SELECT * FROM Users";
+        }
 
-            Task.Run(async () => users = (await repositoryManager.QueryAsync<User>(query)).ToList()).Wait();
+        static async Task Get()
+        {
+            string query = "i.Id == 1";
 
-            if (users != null && users.Count != 0)
+            var response = await client.GetAsync("GetByCondition/" + query);
+
+            if (response.IsSuccessStatusCode)
             {
-                foreach (var user in users)
-                {
-
-                    Console.WriteLine("Usename: " + user.Username + "\nPassword: " + user.Password + "\nEmail: " + user.Email);
-                }
-            }
-            else
-            {
-                Console.WriteLine("No users found");
-            }
-
-            //int count = 0;
-
-            //string query = "SELECT COUNT(Username) FROM Users";
-
-            //Task.Run(async () => count = (await repositoryManager.ExecuteScalarAsync<int>(query))).Wait();
-
-            //Console.WriteLine(count);
+                var user = await response.Content.ReadAsAsync<List<User>>();
+            }          
         }
     }
 }
