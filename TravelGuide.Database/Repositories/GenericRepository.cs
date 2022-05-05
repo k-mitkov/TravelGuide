@@ -32,7 +32,7 @@ namespace TravelGuide.Database.Repositories
 
         #region Methods
 
-        public void Insert(TEntity entity)
+        public async Task<TEntity> Insert(TEntity entity)
         {
             lock (lockObject)
             {
@@ -41,11 +41,13 @@ namespace TravelGuide.Database.Repositories
                     entity.Id = null;
                     entities.Add(entity);
                 }
-                database.SaveChanges();
             }
 
+            await database.SaveChangesAsync();
+
+            return await Task.Run(() => { return entity; });
         }
-        public void Update(TEntity entity)
+        public async Task<TEntity> Update(TEntity entity)
         {
             lock (lockObject)
             {
@@ -53,10 +55,12 @@ namespace TravelGuide.Database.Repositories
                 {
                     entities.Update(entity);
                 }
-                database.SaveChanges();
             }
+            await database.SaveChangesAsync();
+
+            return await Task.Run(() => { return entity; });
         }
-        public void Delete(TEntity entity)
+        public async Task<TEntity> Delete(TEntity entity)
         {
             lock (lockObject)
             {
@@ -64,8 +68,22 @@ namespace TravelGuide.Database.Repositories
                 {
                     entities.Remove(entity);
                 }
-                database.SaveChanges();
             }
+            await database.SaveChangesAsync();
+
+            return await Task.Run(() => { return entity; });
+        }
+
+        public async Task DeleteByCondition(Expression<Func<TEntity, bool>> where = null)
+        {
+            lock (lockObject)
+            {
+                if (where != null)
+                {
+                    entities.RemoveRange(entities.Where(where));
+                }
+            }
+            await database.SaveChangesAsync();
         }
 
         public async Task<TEntity> SelectAsync(Expression<Func<TEntity, bool>> where = null)
@@ -97,6 +115,7 @@ namespace TravelGuide.Database.Repositories
                     selectedEntities = entities.ToList();
                 }
             }
+
             return await Task.Run(() => { return selectedEntities; });
         }
 

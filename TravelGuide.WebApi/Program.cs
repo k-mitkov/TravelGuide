@@ -14,7 +14,11 @@ namespace TravelGuide.WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    //Проекта се билдва като TravelGuide.WebApi
+                    //тук може да си смениш към твои адреси да са заявките, не е задължително да са тези. После от мобилното приложение се обръщаш към тях някой от тях
+                    webBuilder
+                    .UseUrls("http://192.168.0.102:5000", "https://192.168.0.102:5001")
+                    .UseStartup<Startup>();
                 });
     }
 }
