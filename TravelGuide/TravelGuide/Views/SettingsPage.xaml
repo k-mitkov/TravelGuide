@@ -1,12 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:TravelGuide.ViewModels"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              x:Class="TravelGuide.Views.SettingsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <Shell.TitleView>
+        <Label
+            FontAttributes="Bold"
+            Style="{StaticResource mainTabTittleStyle}"
+            Text="Settings"
+            TextColor="{DynamicResource WhiteTextColor}" />
+    </Shell.TitleView>
+
+    <ContentPage.BindingContext>
+        <vm:SettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*,Auto,Auto">
+        <StackLayout
+            Grid.Row="0"
+            Margin="15"
+            Orientation="Vertical"
+            VerticalOptions="Center">
+
+            <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
+                <StackLayout Orientation="Horizontal">
+                    <Image
+                        Margin="5,0,0,0"
+                        HeightRequest="20"
+                        Source="{Binding SelectedLanguage.FlagSource}"
+                        VerticalOptions="Center" />
+
+                    <Picker
+                        Title="Language"
+                        HorizontalOptions="FillAndExpand"
+                        ItemDisplayBinding="{Binding Name}"
+                        ItemsSource="{Binding SupportedLanguages}"
+                        SelectedItem="{Binding SelectedLanguage}"
+                        Style="{StaticResource pickerStyle}" />
+                </StackLayout>
+            </Frame>
+
+            <Frame
+                Padding="5"
+                BackgroundColor="{DynamicResource SecondBackgroundColor}"
+                HeightRequest="70">
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        Margin="5,0,0,0"
+                        Style="{StaticResource labelMediumFontSizeStyle}"
+                        Text="Theme"
+                        TextColor="{DynamicResource DynamicTextColor}"
+                        VerticalOptions="Center" />
+
+                    <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding IsThemeButtonToggled}"/>
+                    <!--<switch:ThemeCustomSwitch HorizontalOptions="EndAndExpand" IsToggled="{Binding IsThemeButtonToggled}" />-->
+                </StackLayout>
+            </Frame>
+
+            <!--<Frame
+                Padding="5"
+                BackgroundColor="{DynamicResource SecondBackgroundColor}"
+                HeightRequest="70">
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        Margin="5,0,0,0"
+                        Style="{StaticResource labelMediumFontSizeStyle}"
+                        Text="{toolkit:Translate strHidingGoodsZeroQuantities}"
+                        TextColor="{DynamicResource DynamicTextColor}"
+                        VerticalOptions="Center" />
+
+                    <switch:VisibleCustomSwitch
+                        BackgroundColor="{DynamicResource SwitchButtonColor}"
+                        HorizontalOptions="EndAndExpand"
+                        IsToggled="{Binding IsZeroQuantityGoodsVisible}"
+                        KnobColor="{DynamicResource WhiteTextColor}" />
+                </StackLayout>
+            </Frame>-->
+
         </StackLayout>
-    </ContentPage.Content>
+    </Grid>
 </ContentPage>

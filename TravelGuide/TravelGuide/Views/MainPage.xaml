@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:TravelGuide.ViewModels"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              x:Class="TravelGuide.Views.MainPage">
     
     <ContentPage.BindingContext>
@@ -9,11 +10,12 @@
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                   TextColor="Black"/>
-        </StackLayout>
+        <Grid>
+            <Image Aspect="AspectFill" HeightRequest="100" WidthRequest="100">
+                <Image.Source>
+                    <FileImageSource File="{Binding Image2}" />
+                </Image.Source>
+            </Image>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

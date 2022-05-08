@@ -1,17 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:TravelGuide.ViewModels"
-             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
-             mc:Ignorable="d"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
-             x:Class="TravelGuide.Views.LoginPage"
+             xmlns:vm="clr-namespace:TravelGuide.ViewModels"
+             x:Class="TravelGuide.Views.RegisterPage"
              Shell.NavBarIsVisible="False">
 
     <ContentPage.BindingContext>
-        <vm:LoginViewModel/>
+        <vm:RegisterViewModel/>
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
@@ -50,15 +46,16 @@
                             ItemsSource="{Binding Users}"
                             SelectedItem="{Binding SelectedUser}"
                             Style="{StaticResource pickerStyle}">
-                            --><!--<Picker.Triggers>
+                            -->
+                        <!--<Picker.Triggers>
                                 <EventTrigger Event="Focused">
                                     <local:FocusedTriggerAction />
                                 </EventTrigger>
-                            </Picker.Triggers>--><!--
+                            </Picker.Triggers>-->
+                        <!--
                         </Picker>-->
 
                         <Entry
-                            x:Name="enryUsername"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             HorizontalOptions="FillAndExpand"
@@ -83,7 +80,6 @@
                         </Image>-->
 
                         <Entry
-                            x:Name="enryPassword"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             HorizontalOptions="FillAndExpand"
@@ -112,20 +108,53 @@
                     </Grid>
                 </Frame>
 
+                <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
+                    <Grid ColumnDefinitions="Auto,*,Auto">
+                        <!--<Image Margin="5,5,0,0" VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.LockCheck}"
+                                    Size="24"
+                                    Color="{DynamicResource GrayIconColor}" />
+                            </Image.Source>
+                        </Image>-->
+
+                        <Entry
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="FillAndExpand"
+                            IsPassword="True"
+                            Placeholder="Confirm Password"
+                            Style="{StaticResource entryStyle}"
+                            Text="{Binding Password, Mode=TwoWay}" />
+
+                        <!--<Image
+                            Grid.Column="2"
+                            Margin="0,5,5,0"
+                            VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{Binding IconSrc}"
+                                    Size="24"
+                                    Color="{DynamicResource GrayIconColor}" />
+                            </Image.Source>
+
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangeImageSrcCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>-->
+
+                    </Grid>
+                </Frame>
+
                 <Button
                     Margin="0,10,0,0"
                     Command="{Binding LoginCommand}"
                     HorizontalOptions="FillAndExpand"
                     Style="{StaticResource Key=SaveButton}"
-                    Text="Login" />
-
-                <Button
-                    BackgroundColor="{DynamicResource Transparent}"
-                    BorderWidth="0"
-                    Command="{Binding RegisterCommand}"
-                    HorizontalOptions="Center"
-                    Text="register now"
-                    TextColor="{DynamicResource HyperlinksColor}" />
+                    Text="Register" />
 
                 <ActivityIndicator IsRunning="{Binding IsBusy}" Style="{StaticResource ActivityIndicatorStyle}" />
 

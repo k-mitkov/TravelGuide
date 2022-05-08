@@ -15,6 +15,8 @@ namespace TravelGuide
             Routing.RegisterRoute(nameof(NewLandmarkPage), typeof(NewLandmarkPage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+            Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
+            Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             Routing.RegisterRoute(nameof(AccountPage), typeof(AccountPage));
         }
 

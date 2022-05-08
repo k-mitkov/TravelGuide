@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TravelGuide.ViewModels"
+             BackgroundColor="{DynamicResource SecondPageBackgroundColor}"
+             x:Class="TravelGuide.Views.AboutPage">
+    <ContentPage.BindingContext>
+        <vm:AboutPageViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+            </Grid.RowDefinitions>
+            <Image
+                Grid.Row="0"
+                HorizontalOptions="Center"
+                Source="Resources/Shipka.png"
+                VerticalOptions="Center" />
+            <StackLayout Grid.Row="1" VerticalOptions="StartAndExpand">
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding ProductVersion}"
+                    TextColor="{DynamicResource WhiteTextColor}" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding Copyright}"
+                    TextColor="{DynamicResource WhiteTextColor}" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="София, бул. Кл.Охридски 8"
+                    TextColor="{DynamicResource WhiteTextColor}" />
+                <Button
+                    BackgroundColor="{DynamicResource Transparent}"
+                    BorderWidth="0"
+                    Command="{Binding OpenSupportLinkCommand}"
+                    HorizontalOptions="Center"
+                    Text="support@travelguide.net"
+                    TextColor="{DynamicResource HyperlinksColor}" />
+                <Label
+                    HorizontalOptions="Center"
+                    Text="{Binding Id}"
+                    TextColor="{DynamicResource WhiteTextColor}" />
+            </StackLayout>
+            <Image
+                Grid.Row="2"
+                Margin="0,0,0,50"
+                HorizontalOptions="Center"
+                HeightRequest="100"
+                Source="Resources/TUSofia.png"
+                VerticalOptions="Center" />
+            <!--<Image Grid.Row="2">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="WarehouseIcons"
+                        Glyph="{x:Static h:IconFont.MicroinvestLogo}"
+                        Size="100"
+                        Color="{DynamicResource WhiteTextColor}" />
+                </Image.Source>
+            </Image>-->
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

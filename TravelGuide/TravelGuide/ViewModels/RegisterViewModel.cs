@@ -10,9 +10,8 @@ using Xamarin.Forms;
 
 namespace TravelGuide.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    public class RegisterViewModel : BaseViewModel
     {
-
         #region Declarations
 
         ///// <summary>
@@ -55,8 +54,6 @@ namespace TravelGuide.ViewModels
         /// </summary>
         private ICommand loginCommand;
 
-        private ICommand registerCommand;
-
         ///// <summary>
         ///// Команда при показване на екрана
         ///// </summary>
@@ -66,7 +63,7 @@ namespace TravelGuide.ViewModels
 
         #region Constructors
 
-        public LoginViewModel()
+        public RegisterViewModel()
         {
             //this.alert = alert;
             //this.usersHelper = usersHelper;
@@ -83,8 +80,6 @@ namespace TravelGuide.ViewModels
         /// Команда за вход
         /// </summary>
         public ICommand LoginCommand => loginCommand ?? (loginCommand = new ExtendedCommand(Login));
-
-        public ICommand RegisterCommand => registerCommand ?? (registerCommand = new ExtendedCommand(NavigateToRegisterScreen));
 
         ///// <summary>
         ///// Команда при показване на екрана
@@ -247,11 +242,6 @@ namespace TravelGuide.ViewModels
         {
             MessagingCenter.Send(this, "ChangedUser");
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-        }
-
-        private async void NavigateToRegisterScreen(object _)
-        {
-            await Shell.Current.GoToAsync($"//{nameof(RegisterPage)}");
         }
 
         #endregion

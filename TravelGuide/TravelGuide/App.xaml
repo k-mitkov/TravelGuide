@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TravelGuide.App">
+             x:Class="TravelGuide.App"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#2196F3</Color>
-            <Style TargetType="Button">
+            <!--<Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -26,7 +27,255 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
+            </Style>-->
+
+            <sys:Int32 x:Key="MediumLenght">20</sys:Int32>
+            <sys:Int32 x:Key="LargeLenght">100</sys:Int32>
+
+            <Style x:Key="entryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{DynamicResource SecondBackgroundColor}" />
+                <Setter Property="TextColor" Value="{DynamicResource DynamicTextColor}" />
+                <Setter Property="PlaceholderColor" Value="{DynamicResource GrayTextColor}" />
+                <Setter Property="HeightRequest" Value="70" />
+                <Setter Property="Visual" Value="Material" />
             </Style>
+
+            <Style x:Key="selectedItemStyle" TargetType="Grid">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource ThirdBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="selectedDocumentItemStyle" TargetType="Frame">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BorderColor" Value="{DynamicResource AccentColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BorderColor" Value="{DynamicResource PageBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="turnoverReportRowsStyle" TargetType="StackLayout">
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="Padding" Value="15" />
+            </Style>
+
+            <Style x:Key="checkBoxStyle" TargetType="CheckBox">
+                <Setter Property="ScaleX" Value="1.5" />
+                <Setter Property="ScaleY" Value="1.5" />
+                <Setter Property="Color" Value="{DynamicResource ButtonColor}" />
+            </Style>
+
+            <Style
+                x:Key="turnoverReportColoredRowsStyle"
+                BasedOn="{StaticResource turnoverReportRowsStyle}"
+                TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{DynamicResource MainBackgroundColor}" />
+            </Style>
+
+            <Style x:Key="tableHeaderFrameStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{DynamicResource MainBackgroundColor}" />
+                <Setter Property="BorderColor" Value="{DynamicResource PageBackgroundColor}" />
+                <Setter Property="CornerRadius" Value="0" />
+            </Style>
+
+            <Style x:Key="tableRowsFrameStyle" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="{DynamicResource Transparent}" />
+                <Setter Property="BorderColor" Value="{DynamicResource PageBackgroundColor}" />
+                <Setter Property="CornerRadius" Value="0" />
+            </Style>
+
+            <Style x:Key="navSelectedItemStyle" TargetType="StackLayout">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="squareFrameStyle" TargetType="Frame">
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="WidthRequest" Value="40" />
+                <Setter Property="Visual" Value="Material" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="BorderColor" Value="{DynamicResource AccentColor}" />
+            </Style>
+
+            <Style x:Key="AddNewButtonStyle" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="{DynamicResource Transparent}" />
+                <Setter Property="Orientation" Value="Horizontal" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="HeightRequest" Value="40" />
+            </Style>
+
+            <Style x:Key="pickerStyle" TargetType="Picker">
+                <Setter Property="BackgroundColor" Value="{DynamicResource SecondBackgroundColor}" />
+                <Setter Property="TextColor" Value="{DynamicResource DynamicTextColor}" />
+                <Setter Property="TitleColor" Value="{DynamicResource GrayTextColor}" />
+                <Setter Property="HeightRequest" Value="70" />
+                <Setter Property="Visual" Value="Material" />
+            </Style>
+
+            <Style x:Key="searchBarStyle" TargetType="SearchBar">
+                <Setter Property="BackgroundColor" Value="{DynamicResource SecondBackgroundColor}" />
+                <Setter Property="TextColor" Value="{DynamicResource DynamicTextColor}" />
+                <Setter Property="PlaceholderColor" Value="{DynamicResource GrayTextColor}" />
+                <Setter Property="CancelButtonColor" Value="{DynamicResource AccentColor}" />
+            </Style>
+
+            <Style x:Key="emptyTemplateStyle" TargetType="Grid">
+                <Setter Property="BackgroundColor" Value="#ecf0f1" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+
+            <Style x:Key="emptyLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="TextColor" Value="{DynamicResource ThirdBackgroundColor}" />
+            </Style>
+
+            <Style x:Key="stackLayoutStyle" TargetType="StackLayout">
+                <Setter Property="Margin" Value="10,5,10,5" />
+            </Style>
+
+            <Style x:Key="labelMediumFontSizeStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+
+            <Style x:Key="labelLargeFontSizeStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+
+            <Style x:Key="labelSmallFontSizeStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+            </Style>
+
+            <Style x:Key="mainTabTittleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource WhiteTextColor}" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="Large" />
+            </Style>
+
+            <Style x:Key="printingSettingsTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource WhiteTextColor}" />
+                <Setter Property="VerticalTextAlignment" Value="Start" />
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+
+            <Style x:Key="subTabTittleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource WhiteTextColor}" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="{DynamicResource WhiteTextColor}" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style
+                x:Key="disabledPickerStyle"
+                BasedOn="{StaticResource pickerStyle}"
+                TargetType="Picker">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="0.3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style
+                x:Key="disabledEntryStyle"
+                BasedOn="{StaticResource entryStyle}"
+                TargetType="Entry">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity" Value="0.3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SaveButton" TargetType="Button">
+                <Setter Property="Margin" Value="20" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="VerticalOptions" Value="End" />
+                <Setter Property="BackgroundColor" Value="{DynamicResource ButtonColor}" />
+            </Style>
+
+            <Style x:Key="ActivityIndicatorStyle" TargetType="ActivityIndicator">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="Color" Value="{DynamicResource Primary}" />
+            </Style>
+
+            <!--<locator:ViewModelLocator x:Key="Locator" />
+
+            <converters:OppositeConverter x:Key="oppositeConverter" />
+            <converters:StringNullOrEmptyBoolConverter x:Key="stringNullOrEmptyBoolConverter" />
+            <converters:DoubleConverter x:Key="doubleConverter" />
+            <converters:PriceFormatConverter x:Key="priceFormatConverter" />
+            <converters:QttyFormatConverter x:Key="qttyFormatConverter" />-->
+            
         </ResourceDictionary>        
     </Application.Resources>
 </Application>
