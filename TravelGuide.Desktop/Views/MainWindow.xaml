@@ -140,6 +140,7 @@
                                         Text="{Binding ImagePath, Mode=TwoWay}"
                                         TextWrapping="NoWrap" />
                                     <Button
+                                        ToolTip="Choose picture"
                                         Grid.Column="1"
                                         Width="{Binding ElementName=ImageTextBox, Path=ActualHeight}"
                                         Margin="5,0,0,0"
@@ -147,6 +148,7 @@
                                         Style="{StaticResource FileButton}" />
                                 </Grid>
                                 <Button
+                                    ToolTip="Accept"
                                     Grid.Column="7"
                                     Margin="5,0,0,0"
                                     HorizontalAlignment="Center"
@@ -155,6 +157,7 @@
                                     Content="Add"
                                     Style="{StaticResource OkButton}" />
                                 <Button
+                                    ToolTip="Decline"
                                     Grid.Row="1"
                                     Grid.Column="7"
                                     Margin="5,0,0,0"

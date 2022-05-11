@@ -19,7 +19,7 @@ namespace TravelGuide.Desktop.Models
         private Action<LandmarkWrapper> cancel;
         private ICommand addCommand;
         private ICommand cancelCommand;
-
+        private ICommand getImagePathCommand;
 
         #endregion
 
@@ -28,6 +28,7 @@ namespace TravelGuide.Desktop.Models
         public LandmarkWrapper(Landmark landmark, Action<LandmarkWrapper> add, Action<LandmarkWrapper> cancel)
         {
             Landmark = landmark;
+            ImagePath = landmark.ImagePath;
             this.add = add;
             this.cancel = cancel;
         }
@@ -40,7 +41,7 @@ namespace TravelGuide.Desktop.Models
 
         public ICommand AddCommand => addCommand ?? (addCommand = new RelayCommand(Add, (e) => { return true; }));
         public ICommand CancelCommand => cancelCommand ?? (cancelCommand = new RelayCommand(Cancel, (e) => { return true; }));
-        public ICommand GetImagePathCommand => cancelCommand ?? (cancelCommand = new RelayCommand(GetImagePath, (e) => { return true; }));
+        public ICommand GetImagePathCommand => getImagePathCommand ?? (getImagePathCommand = new RelayCommand(GetImagePath, (e) => { return true; }));
 
         #endregion
 

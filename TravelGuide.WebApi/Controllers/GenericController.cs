@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,6 @@ namespace TravelGuide.WebApi.Controllers
         public GenericController()
         {
             repository = new GenericRepository<TEntity>(new object(), new TravelGuideContext());
-        }
-
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<TEntity>> GetAll()
-        {
-            return Ok(await repository.SelectAllAsync());
         }
 
         [HttpGet("GetOneByCondition/{where}")]
@@ -56,7 +51,7 @@ namespace TravelGuide.WebApi.Controllers
         {
             try
             {
-                if (!string.IsNullOrEmpty(query) && query != "None")
+                if (!string.IsNullOrEmpty(query))
                 {
                     var p = Expression.Parameter(typeof(TEntity), "i");
 
@@ -72,16 +67,6 @@ namespace TravelGuide.WebApi.Controllers
             {
                 return BadRequest();
             }
-        }
-
-        [HttpPost("Post")]
-        public virtual async Task<ActionResult> Post([FromBody] TEntity entity)
-        {
-            if (entity != null)
-            {
-                return Ok(await repository.Insert(entity));
-            }
-            return BadRequest();
         }
 
         [HttpPut("Update")]
@@ -110,7 +95,7 @@ namespace TravelGuide.WebApi.Controllers
         {
             try
             {
-                if (!string.IsNullOrEmpty(query) && query != "None")
+                if (!string.IsNullOrEmpty(query))
                 {
                     var p = Expression.Parameter(typeof(TEntity), "i");
 
@@ -122,20 +107,6 @@ namespace TravelGuide.WebApi.Controllers
                     return Ok();
                 }
                 return BadRequest();
-            }
-            catch
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpDelete("DeleteById/{id}")]
-        public async Task<ActionResult> DeleteById([FromRoute] int Id)
-        {
-            try
-            {
-                //todo
-                return Ok();
             }
             catch
             {

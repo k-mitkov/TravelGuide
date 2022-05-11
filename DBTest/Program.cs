@@ -5,6 +5,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using TravelGuide.ClassLibrary.Models;
 using TravelGuide.Database.Entities;
 
 namespace DBTest
@@ -66,22 +67,48 @@ namespace DBTest
 
             //Пример как се записва в базата.
             //Изпраща заявка за създаване на забележителност. Трябва да са включени и API-ът и desktop приложението. Иначе няма да мине заявката.
-            var response2 = await client.PostAsJsonAsync("Post", landmark);
+            /*var response2 = await client.PostAsJsonAsync("Post", landmark);
 
             if (response2.IsSuccessStatusCode)
             {
 
             }
+            */
 
-            //Пример как се чете и се визуализира картинка съм добавил в TravelGuide ImageTestPage и ImageTestViewModel.
-            var response3 = await client.GetAsync("GetImageById/" + 5.ToString());
+            var response4 = await client.GetAsync("GetAll");
 
-            if (response3.IsSuccessStatusCode)
+            if(response4.IsSuccessStatusCode)
             {
-                var bytes = await response3.Content.ReadAsAsync<byte[]>();
-                Bitmap bm = (Bitmap)imageConverter.ConvertFrom(bytes);
+                try
+                {
+                    var landmarks = await response4.Content.ReadAsAsync<List<LandmarkWrapper>>();
+                }
+                catch(Exception ex)
+                { 
+                }
             }
 
+            User user = new User()
+            {
+                Username = "proba",
+                Password = "proba"
+            };
+
+            client = new HttpClient(clientHandler);
+
+            // За избиране на твой адрес виж Program в TravelGuide.WebApi проекта. Също и connectionString-ът в проекта с базата трябва да промениш.
+            //Вместо landmark, може да са user и comment, за да се извикат другите контролери от API-ът.
+            client.BaseAddress = new Uri("https://192.168.0.102:5001/api/user/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
+
+           
+            var response5 = await client.PostAsJsonAsync("Login", user);
+
+            if(response5.IsSuccessStatusCode)
+            {
+                var isLogged = await response5.Content.ReadAsAsync<bool>();
+            }
         }
     }
 }

@@ -66,8 +66,8 @@ namespace TravelGuide.Desktop.ViewModels
                 {
                     App.Current.Dispatcher.Invoke(() =>
                     {
-                        var landmark = JsonConvert.DeserializeObject<Landmark>(reader.ReadToEnd());
-                        Landmarks.Add(new LandmarkWrapper(landmark, AddLandmark, CancelLandmark));
+                        var landmark = JsonConvert.DeserializeObject<TravelGuide.ClassLibrary.Models.LandmarkWrapper>(reader.ReadToEnd());
+                        Landmarks.Add(new LandmarkWrapper(landmark.Landmark, AddLandmark, CancelLandmark));
 
                         HttpListenerResponse response = context.Response;
                         string responseString = "Send successfully";

@@ -1,16 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:TravelGuide.ViewModels"
-             x:Class="TravelGuide.Views.ImageTestPage">
+<ContentPage
+    x:Class="TravelGuide.Views.ImageTestPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:TravelGuide.ViewModels">
 
     <ContentPage.BindingContext>
         <vm:ImageTestViewModel />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
-        <StackLayout>
-            <Image HeightRequest="100" WidthRequest="100" Source="{Binding ImagePath}"></Image>
-        </StackLayout>
+        <Grid RowDefinitions="auto,*">
+            <Button
+                Command="{Binding CreateLandmarkCommand}"
+                HorizontalOptions="Start"
+                Text="Create Landmark"
+                VerticalOptions="Start" />
+            <Button
+                Command="{Binding RegisterCommand}"
+                HorizontalOptions="End"
+                Text="Register User"
+                VerticalOptions="Start" />
+            <Image
+                Grid.Row="1"
+                HorizontalOptions="Center"
+                Source="{Binding ImagePath}"
+                VerticalOptions="Center" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

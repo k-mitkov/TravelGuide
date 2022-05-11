@@ -1,10 +1,9 @@
-﻿using Android.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TravelGuide.ClassLibrary.Models;
 using TravelGuide.Services;
-using TravelGuide.Wrappers;
 using Xamarin.Forms;
 
 namespace TravelGuide.ViewModels
@@ -27,7 +26,7 @@ namespace TravelGuide.ViewModels
             get
             {
                 ImageSourceConverter c = new ImageSourceConverter();
-                return (ImageSource)c.ConvertFrom(Landmars.FirstOrDefault().Image);
+                return null;//(ImageSource)c.ConvertFrom(Landmars.FirstOrDefault().Image);
             }
         }
 

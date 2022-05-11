@@ -7,11 +7,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.24" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TravelGuide.Database\TravelGuide.Database.csproj" />
+    <ProjectReference Include="..\TravelGuide.ClassLibrary\TravelGuide.ClassLibrary.csproj" />
   </ItemGroup>
 
 
