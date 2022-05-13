@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              xmlns:vm="clr-namespace:TravelGuide.ViewModels"
+             xmlns:h="clr-namespace:TravelGuide.Helpers"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              x:Class="TravelGuide.Views.RegisterPage"
              Shell.NavBarIsVisible="False">
 
@@ -11,7 +13,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <Grid RowDefinitions="*,*">
+        <Grid RowDefinitions="0.5*,*">
 
             <StackLayout Grid.Row="0" BackgroundColor="{DynamicResource SecondPageBackgroundColor}"/>
 
@@ -29,7 +31,7 @@
 
                 <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
                     <StackLayout Orientation="Horizontal">
-                        <!--<Image Margin="5,5,0,0" VerticalOptions="Center">
+                        <Image Margin="5,5,0,0" VerticalOptions="Center">
                             <Image.Source>
                                 <FontImageSource
                                     FontFamily="materialdesignicons-webfont"
@@ -37,29 +39,13 @@
                                     Size="24"
                                     Color="{DynamicResource GrayIconColor}" />
                             </Image.Source>
-                        </Image>-->
-
-                        <!--<Picker
-                            Title="Username"
-                            HorizontalOptions="FillAndExpand"
-                            ItemDisplayBinding="{Binding Name}"
-                            ItemsSource="{Binding Users}"
-                            SelectedItem="{Binding SelectedUser}"
-                            Style="{StaticResource pickerStyle}">
-                            -->
-                        <!--<Picker.Triggers>
-                                <EventTrigger Event="Focused">
-                                    <local:FocusedTriggerAction />
-                                </EventTrigger>
-                            </Picker.Triggers>-->
-                        <!--
-                        </Picker>-->
+                        </Image>
 
                         <Entry
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="Username"
+                            Placeholder="{toolkit:Translate strUsername}"
                             Style="{StaticResource entryStyle}"
                             Text="{Binding Username, Mode=TwoWay}" />
 
@@ -68,8 +54,32 @@
                 </Frame>
 
                 <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
+                    <StackLayout Orientation="Horizontal">
+                        <Image Margin="5,5,0,0" VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.PrinterPos}"
+                                    Size="24"
+                                    Color="{DynamicResource GrayIconColor}" />
+                            </Image.Source>
+                        </Image>
+
+                        <Entry
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="{toolkit:Translate strEmail}"
+                            Style="{StaticResource entryStyle}"
+                            Text="{Binding Email, Mode=TwoWay}" />
+
+                    </StackLayout>
+
+                </Frame>
+
+                <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
                     <Grid ColumnDefinitions="Auto,*,Auto">
-                        <!--<Image Margin="5,5,0,0" VerticalOptions="Center">
+                        <Image Margin="5,5,0,0" VerticalOptions="Center">
                             <Image.Source>
                                 <FontImageSource
                                     FontFamily="materialdesignicons-webfont"
@@ -77,40 +87,23 @@
                                     Size="24"
                                     Color="{DynamicResource GrayIconColor}" />
                             </Image.Source>
-                        </Image>-->
+                        </Image>
 
                         <Entry
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             HorizontalOptions="FillAndExpand"
                             IsPassword="True"
-                            Placeholder="Password"
+                            Placeholder="{toolkit:Translate strPassword}"
                             Style="{StaticResource entryStyle}"
                             Text="{Binding Password, Mode=TwoWay}" />
-
-                        <!--<Image
-                            Grid.Column="2"
-                            Margin="0,5,5,0"
-                            VerticalOptions="Center">
-                            <Image.Source>
-                                <FontImageSource
-                                    FontFamily="materialdesignicons-webfont"
-                                    Glyph="{Binding IconSrc}"
-                                    Size="24"
-                                    Color="{DynamicResource GrayIconColor}" />
-                            </Image.Source>
-
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ChangeImageSrcCommand}" />
-                            </Image.GestureRecognizers>
-                        </Image>-->
 
                     </Grid>
                 </Frame>
 
                 <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
                     <Grid ColumnDefinitions="Auto,*,Auto">
-                        <!--<Image Margin="5,5,0,0" VerticalOptions="Center">
+                        <Image Margin="5,5,0,0" VerticalOptions="Center">
                             <Image.Source>
                                 <FontImageSource
                                     FontFamily="materialdesignicons-webfont"
@@ -118,33 +111,16 @@
                                     Size="24"
                                     Color="{DynamicResource GrayIconColor}" />
                             </Image.Source>
-                        </Image>-->
+                        </Image>
 
                         <Entry
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             HorizontalOptions="FillAndExpand"
                             IsPassword="True"
-                            Placeholder="Confirm Password"
+                            Placeholder="{toolkit:Translate strConfirmPassword}"
                             Style="{StaticResource entryStyle}"
-                            Text="{Binding Password, Mode=TwoWay}" />
-
-                        <!--<Image
-                            Grid.Column="2"
-                            Margin="0,5,5,0"
-                            VerticalOptions="Center">
-                            <Image.Source>
-                                <FontImageSource
-                                    FontFamily="materialdesignicons-webfont"
-                                    Glyph="{Binding IconSrc}"
-                                    Size="24"
-                                    Color="{DynamicResource GrayIconColor}" />
-                            </Image.Source>
-
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ChangeImageSrcCommand}" />
-                            </Image.GestureRecognizers>
-                        </Image>-->
+                            Text="{Binding ConfirmPassword, Mode=TwoWay}" />
 
                     </Grid>
                 </Frame>
@@ -154,7 +130,7 @@
                     Command="{Binding LoginCommand}"
                     HorizontalOptions="FillAndExpand"
                     Style="{StaticResource Key=SaveButton}"
-                    Text="Register" />
+                    Text="{toolkit:Translate strRegister}" />
 
                 <ActivityIndicator IsRunning="{Binding IsBusy}" Style="{StaticResource ActivityIndicatorStyle}" />
 

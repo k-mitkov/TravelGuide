@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using TravelGuide.Models;
@@ -51,6 +52,19 @@ namespace TravelGuide.ViewModels
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Load Item");
+            }
+        }
+
+        public List<Comment> Comments
+        {
+            get
+            {
+                return new List<Comment> { new Comment { Writer = "vasil.lazarov", CommentText = "Супер е!" },
+                    new Comment { Writer = "krasimir.mitkov", CommentText = "Златните мостове е едно от красивите места за отдих около София." },
+                    new Comment { Writer = "tihomir.nikolov", CommentText = "Местността е чудесно начало за множество разходки сред природата или за пикник в събота и неделя." },
+                    new Comment { Writer = "aleksander.blagoev", CommentText = "Хареса ми." }
+                };
+
             }
         }
     }

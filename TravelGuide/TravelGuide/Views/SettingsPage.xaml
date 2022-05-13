@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:switch="clr-namespace:TravelGuide.CustomControls"
              xmlns:vm="clr-namespace:TravelGuide.ViewModels"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              x:Class="TravelGuide.Views.SettingsPage">
@@ -9,7 +10,7 @@
         <Label
             FontAttributes="Bold"
             Style="{StaticResource mainTabTittleStyle}"
-            Text="Settings"
+            Text="{toolkit:Translate strSettings}"
             TextColor="{DynamicResource WhiteTextColor}" />
     </Shell.TitleView>
 
@@ -33,7 +34,7 @@
                         VerticalOptions="Center" />
 
                     <Picker
-                        Title="Language"
+                        Title="{toolkit:Translate strLanguage}"
                         HorizontalOptions="FillAndExpand"
                         ItemDisplayBinding="{Binding Name}"
                         ItemsSource="{Binding SupportedLanguages}"
@@ -50,34 +51,14 @@
                     <Label
                         Margin="5,0,0,0"
                         Style="{StaticResource labelMediumFontSizeStyle}"
-                        Text="Theme"
+                        Text="{toolkit:Translate strTheme}"
                         TextColor="{DynamicResource DynamicTextColor}"
                         VerticalOptions="Center" />
-
-                    <Switch HorizontalOptions="EndAndExpand" IsToggled="{Binding IsThemeButtonToggled}"/>
-                    <!--<switch:ThemeCustomSwitch HorizontalOptions="EndAndExpand" IsToggled="{Binding IsThemeButtonToggled}" />-->
+                    
+                    <switch:ThemeCustomSwitch CornerRadius="20" HorizontalOptions="EndAndExpand" IsToggled="{Binding IsThemeButtonToggled}" />
+                    
                 </StackLayout>
             </Frame>
-
-            <!--<Frame
-                Padding="5"
-                BackgroundColor="{DynamicResource SecondBackgroundColor}"
-                HeightRequest="70">
-                <StackLayout Orientation="Horizontal">
-                    <Label
-                        Margin="5,0,0,0"
-                        Style="{StaticResource labelMediumFontSizeStyle}"
-                        Text="{toolkit:Translate strHidingGoodsZeroQuantities}"
-                        TextColor="{DynamicResource DynamicTextColor}"
-                        VerticalOptions="Center" />
-
-                    <switch:VisibleCustomSwitch
-                        BackgroundColor="{DynamicResource SwitchButtonColor}"
-                        HorizontalOptions="EndAndExpand"
-                        IsToggled="{Binding IsZeroQuantityGoodsVisible}"
-                        KnobColor="{DynamicResource WhiteTextColor}" />
-                </StackLayout>
-            </Frame>-->
 
         </StackLayout>
     </Grid>

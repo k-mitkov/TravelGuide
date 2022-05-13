@@ -2,7 +2,10 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:TravelGuide.Views"
+       xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
        Title="TravelGuide"
+       xmlns:h="clr-namespace:TravelGuide.Helpers"
+       FlyoutBackgroundColor="{DynamicResource PageBackgroundColor}"
        x:Class="TravelGuide.AppShell">
 
     <!--
@@ -11,20 +14,23 @@
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
     -->
 
+    
+    
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="#1f1f1f"/>
-                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.BackgroundColor" Value="{DynamicResource NavColor}" />
+                <Setter Property="Shell.ForegroundColor" Value="{DynamicResource WhiteTextColor}" />
                 <Setter Property="Shell.TitleColor" Value="White" />
-                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
-                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="#1f1f1f" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.FlyoutBackgroundColor" Value="{DynamicResource PageBackgroundColor}" />
+                <Setter Property="Shell.DisabledColor" Value="{DynamicResource DisabledColor}" />
+                <Setter Property="Shell.UnselectedColor" Value="{DynamicResource UnselectedColor}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource NavColor}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{DynamicResource WhiteTextColor}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{DynamicResource UnselectedColor}" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{DynamicResource ButtonColor}" />
             </Style>
-            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
 
             <!--
@@ -41,12 +47,13 @@
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="#1f1f1f" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{DynamicResource DynamicTextColor}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#1f1f1f" />
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource NavColor}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{DynamicResource AccentColor}"/>
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -63,7 +70,7 @@
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="#1f1f1f" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{DynamicResource DynamicTextColor}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -78,25 +85,84 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    <FlyoutItem Title="Home" Icon="icon_about.png">
+
+    <FlyoutItem x:Name="startupPage" IsVisible="False">
+        <ShellContent Route="StartupPage"
+                  Shell.FlyoutBehavior="Disabled"
+                  ContentTemplate="{DataTemplate local:StartupPage}" />
+    </FlyoutItem>
+    
+    <FlyoutItem x:Name="FlyoutItemLabel" Title="{toolkit:Translate strHome}" >
+        <FlyoutItem.Icon>
+            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.Home}"
+                                    Size="24"
+                                    Color="{DynamicResource DynamicTextColor}" />
+        </FlyoutItem.Icon>
         <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="My Account" Icon="icon_feed.png">
+    <!--<FlyoutItem Title="{toolkit:Translate strMyAccount}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.Account}"
+                                    Size="24"
+                                    Color="{DynamicResource DynamicTextColor}" />
+        </FlyoutItem.Icon>
         <ShellContent Route="AccountPage" ContentTemplate="{DataTemplate local:AccountPage}" />
+    </FlyoutItem>-->
+    <FlyoutItem Title="{toolkit:Translate strAddNewLandmark}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.PlusBox}"
+                                    Size="24"
+                                    Color="{DynamicResource DynamicTextColor}" />
+        </FlyoutItem.Icon>
+        <ShellContent Route="NewLandmarkPage" ContentTemplate="{DataTemplate local:NewLandmarkPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Settings" Icon="icon_feed.png">
+    <FlyoutItem Title="{toolkit:Translate strSettings}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.AdditionalSettings}"
+                                    Size="24"
+                                    Color="{DynamicResource DynamicTextColor}" />
+        </FlyoutItem.Icon>
         <ShellContent Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="About" Icon="icon_feed.png">
+    <FlyoutItem Title="{toolkit:Translate strAbout}">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.InformationOutline}"
+                                    Size="24"
+                                    Color="{DynamicResource DynamicTextColor}" />
+        </FlyoutItem.Icon>
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="ImageTest" Icon="icon_feed.png">
+    <!--<FlyoutItem Title="ImageTest">
+        <FlyoutItem.Icon>
+            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.Watch}"
+                                    Size="24"
+                                    Color="{DynamicResource DynamicTextColor}" />
+        </FlyoutItem.Icon>
         <ShellContent Route="ImageTestPage" ContentTemplate="{DataTemplate local:ImageTestPage}" />
-    </FlyoutItem>
+    </FlyoutItem>-->
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
-    <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    <MenuItem Text="{toolkit:Translate strLogout}" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+        <MenuItem.IconImageSource>
+            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.Logout}"
+                                    Size="24"
+                                    Color="{DynamicResource DynamicTextColor}" />
+        </MenuItem.IconImageSource>
     </MenuItem>
 
     <!--
@@ -107,7 +173,7 @@
         await Shell.Current.GoToAsync("//LoginPage");
     -->
     <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}"/>
     </TabBar>
 
     <TabBar>

@@ -4,6 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:TravelGuide.ViewModels"
+             xmlns:h="clr-namespace:TravelGuide.Helpers"
+             xmlns:b="clr-namespace:TravelGuide.Converters"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              mc:Ignorable="d"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
@@ -13,6 +15,10 @@
     <ContentPage.BindingContext>
         <vm:LoginViewModel/>
     </ContentPage.BindingContext>
+
+    <ContentPage.Behaviors>
+        <b:EventToCommandBehavior Command="{Binding OnAppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
 
     <ContentPage.Content>
         <Grid RowDefinitions="*,*">
@@ -33,7 +39,7 @@
 
                 <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
                     <StackLayout Orientation="Horizontal">
-                        <!--<Image Margin="5,5,0,0" VerticalOptions="Center">
+                        <Image Margin="5,5,0,0" VerticalOptions="Center">
                             <Image.Source>
                                 <FontImageSource
                                     FontFamily="materialdesignicons-webfont"
@@ -41,28 +47,14 @@
                                     Size="24"
                                     Color="{DynamicResource GrayIconColor}" />
                             </Image.Source>
-                        </Image>-->
-
-                        <!--<Picker
-                            Title="Username"
-                            HorizontalOptions="FillAndExpand"
-                            ItemDisplayBinding="{Binding Name}"
-                            ItemsSource="{Binding Users}"
-                            SelectedItem="{Binding SelectedUser}"
-                            Style="{StaticResource pickerStyle}">
-                            --><!--<Picker.Triggers>
-                                <EventTrigger Event="Focused">
-                                    <local:FocusedTriggerAction />
-                                </EventTrigger>
-                            </Picker.Triggers>--><!--
-                        </Picker>-->
+                        </Image>
 
                         <Entry
                             x:Name="enryUsername"
                             Grid.Column="1"
                             Grid.ColumnSpan="2"
                             HorizontalOptions="FillAndExpand"
-                            Placeholder="Username"
+                            Placeholder="{toolkit:Translate strUsername}"
                             Style="{StaticResource entryStyle}"
                             Text="{Binding Username, Mode=TwoWay}" />
 
@@ -72,7 +64,7 @@
 
                 <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
                     <Grid ColumnDefinitions="Auto,*,Auto">
-                        <!--<Image Margin="5,5,0,0" VerticalOptions="Center">
+                        <Image Margin="5,5,0,0" VerticalOptions="Center">
                             <Image.Source>
                                 <FontImageSource
                                     FontFamily="materialdesignicons-webfont"
@@ -80,7 +72,7 @@
                                     Size="24"
                                     Color="{DynamicResource GrayIconColor}" />
                             </Image.Source>
-                        </Image>-->
+                        </Image>
 
                         <Entry
                             x:Name="enryPassword"
@@ -88,26 +80,9 @@
                             Grid.ColumnSpan="2"
                             HorizontalOptions="FillAndExpand"
                             IsPassword="True"
-                            Placeholder="Password"
+                            Placeholder="{toolkit:Translate strPassword}"
                             Style="{StaticResource entryStyle}"
                             Text="{Binding Password, Mode=TwoWay}" />
-
-                        <!--<Image
-                            Grid.Column="2"
-                            Margin="0,5,5,0"
-                            VerticalOptions="Center">
-                            <Image.Source>
-                                <FontImageSource
-                                    FontFamily="materialdesignicons-webfont"
-                                    Glyph="{Binding IconSrc}"
-                                    Size="24"
-                                    Color="{DynamicResource GrayIconColor}" />
-                            </Image.Source>
-
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ChangeImageSrcCommand}" />
-                            </Image.GestureRecognizers>
-                        </Image>-->
 
                     </Grid>
                 </Frame>
@@ -116,15 +91,15 @@
                     Margin="0,10,0,0"
                     Command="{Binding LoginCommand}"
                     HorizontalOptions="FillAndExpand"
-                    Style="{StaticResource Key=SaveButton}"
-                    Text="Login" />
+                    Style="{DynamicResource Key=SaveButton}"
+                    Text="{toolkit:Translate strLogin}" />
 
                 <Button
                     BackgroundColor="{DynamicResource Transparent}"
                     BorderWidth="0"
                     Command="{Binding RegisterCommand}"
                     HorizontalOptions="Center"
-                    Text="register now"
+                    Text="{toolkit:Translate strRegister}"
                     TextColor="{DynamicResource HyperlinksColor}" />
 
                 <ActivityIndicator IsRunning="{Binding IsBusy}" Style="{StaticResource ActivityIndicatorStyle}" />

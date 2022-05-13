@@ -29,15 +29,27 @@ namespace TravelGuide.Settings
             }
         }
 
-        public static LenguageEnum Lenguage
+        public static LanguageEnum Lenguage
         {
             get
             {
-                return (LenguageEnum)Preferences.Get(nameof(Theme), (int)LenguageEnum.English);
+                return (LanguageEnum)Preferences.Get(nameof(Lenguage), (int)LanguageEnum.English);
             }
             set
             {
                 Preferences.Set(nameof(Lenguage), (int)value);
+            }
+        }
+
+        public static int LoggedUserId
+        {
+            get
+            {
+                return Preferences.Get(nameof(LoggedUserId), -1);
+            }
+            set
+            {
+                Preferences.Set(nameof(LoggedUserId), value);
             }
         }
     }

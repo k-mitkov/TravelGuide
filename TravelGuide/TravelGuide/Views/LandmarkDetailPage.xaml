@@ -2,13 +2,72 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TravelGuide.Views.LandmarkDetailPage"
-             Title="{Binding Title}">
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:h="clr-namespace:TravelGuide.Helpers"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
-    </StackLayout>
+    <Shell.TitleView>
+        <Label
+            FontAttributes="Bold"
+            Style="{StaticResource mainTabTittleStyle}"
+            Text="{toolkit:Translate strDetails}"
+            TextColor="{DynamicResource WhiteTextColor}" />
+    </Shell.TitleView>
+
+    <Grid RowDefinitions="*,2.5*" RowSpacing="10">
+        <Image
+            Margin="0"
+            Grid.Row="0"
+            Aspect="AspectFill"
+            HorizontalOptions="FillAndExpand"
+            Source="Resources/s.jpg"
+            VerticalOptions="FillAndExpand"/>
+        <Grid Grid.Row="1" RowDefinitions="auto,5*,*" Margin="0">
+            <StackLayout Margin="5,0" VerticalOptions="FillAndExpand" Grid.Row="0" Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Златните Мостове" FontAttributes="Bold" TextColor="{DynamicResource DynamicTextColor}"/>
+                    <Label Text="6,7км" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" TextColor="{DynamicResource DynamicTextColor}"/>
+                </StackLayout>
+                <Label Margin="0" TextColor="{DynamicResource DynamicTextColor}" Text="Златните мостове е един от популярните планински туристически обекти и красиви места за отдих около София. Златни мостове се намират в природен парк Витоша в средното течение на Владайска река и е само на около 20 км от София. Впечатляващи са огромните овални морени по коритото на реката. Местността е чудесно начало за множество разходки сред природата или за пикник в събота и неделя."/>
+            </StackLayout>
+            <CollectionView
+                Grid.Row="1"
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding Comments}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                    <Grid Padding="5">
+                        <Frame Margin="0"
+                               Padding="10"
+                               BackgroundColor="{DynamicResource MainBackgroundColor}"
+                               BorderColor="{DynamicResource AccentColor}">
+                            <StackLayout VerticalOptions="CenterAndExpand" Grid.Column="1" Orientation="Vertical">
+                                <Label Text="{Binding Writer}" FontAttributes="Bold" TextColor="{DynamicResource DynamicTextColor}"/>
+                                <Label Margin="0" TextColor="{DynamicResource DynamicTextColor}" Text="{Binding CommentText}"/>
+                            </StackLayout>
+                        </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Grid Grid.Row="2" Margin="0" ColumnDefinitions="5*,*">
+                <Entry
+                            Grid.Column="0"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="{toolkit:Translate strWriteComment}"
+                            Style="{StaticResource entryStyle}"
+                            Text="{Binding NewComment, Mode=TwoWay}" />
+                <Button Grid.Column="1" Command="{Binding AddComment}">
+                    <Button.ImageSource>
+                        <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.Plus}"
+                                    Size="24"
+                                    Color="{DynamicResource DynamicTextColor}" />
+                    </Button.ImageSource>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
     
 </ContentPage>

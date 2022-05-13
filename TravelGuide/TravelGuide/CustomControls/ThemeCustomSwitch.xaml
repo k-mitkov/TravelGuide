@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<switch:CustomSwitch xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TravelGuide.CustomControls.ThemeCustomSwitch"
+             xmlns:switch="clr-namespace:TravelGuide.CustomControls"
+             BackgroundColor="White"
+             CornerRadius="20"
+             HeightRequest="40"
+             HorizontalKnobMargin="5"
+             KnobColor="White"
+             KnobCornerRadius="16"
+             KnobHeight="32"
+             KnobLimit="Boundary"
+             KnobWidth="32"
+             WidthRequest="80">
+    <switch:CustomSwitch.BackgroundContent>
+        <Grid>
+            <Image
+                x:Name="LightImg"
+                Aspect="AspectFit"
+                HorizontalOptions="Center"
+                Source="light"
+                VerticalOptions="Center" />
+            <Image
+                x:Name="DarkImg"
+                Aspect="AspectFit"
+                HorizontalOptions="Center"
+                Source="dark"
+                VerticalOptions="Center" />
+        </Grid>
+    </switch:CustomSwitch.BackgroundContent>
+    <switch:CustomSwitch.KnobContent>
+        <StackLayout Orientation="Horizontal">
+            <FlexLayout
+                x:Name="Flex"
+                AlignItems="Center"
+                JustifyContent="SpaceBetween"
+                WidthRequest="60">
+                <Image
+                    x:Name="MoonImg"
+                    Aspect="AspectFit"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Source="MoonSurface"
+                    VerticalOptions="Center" />
+                <Image
+                    Aspect="AspectFit"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Source=""
+                    VerticalOptions="Center" />
+            </FlexLayout>
+        </StackLayout>
+    </switch:CustomSwitch.KnobContent>
+    </switch:CustomSwitch>

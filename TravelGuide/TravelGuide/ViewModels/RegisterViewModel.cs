@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using TravelGuide.Intefaces;
+using TravelGuide.Resources.Resx;
 using TravelGuide.Services;
 using TravelGuide.Views;
 using WarehouseMobile.Commands;
@@ -42,7 +44,17 @@ namespace TravelGuide.ViewModels
         /// <summary>
         /// въведената парола
         /// </summary>
+        private string confirmPassword;
+
+        /// <summary>
+        /// въведената парола
+        /// </summary>
         private string username;
+
+        /// <summary>
+        /// въведената парола
+        /// </summary>
+        private string email;
 
         /// <summary>
         /// Потребителите в базата
@@ -131,6 +143,22 @@ namespace TravelGuide.ViewModels
         /// <summary>
         /// Въведената парола
         /// </summary>
+        public string ConfirmPassword
+        {
+            get => confirmPassword;
+            set
+            {
+                if (confirmPassword != value)
+                {
+                    confirmPassword = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Въведената парола
+        /// </summary>
         public string Username
         {
             get => username;
@@ -139,6 +167,22 @@ namespace TravelGuide.ViewModels
                 if (username != value)
                 {
                     username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Въведената парола
+        /// </summary>
+        public string Email
+        {
+            get => email;
+            set
+            {
+                if (email != value)
+                {
+                    email = value;
                     OnPropertyChanged();
                 }
             }
@@ -201,6 +245,12 @@ namespace TravelGuide.ViewModels
         /// <param name="obj"></param>
         private async void Login(object obj)
         {
+            if (!Validate())
+            {
+                return;
+            }
+
+            Settings.Settings.LoggedUserId = 1;
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
 
@@ -242,6 +292,16 @@ namespace TravelGuide.ViewModels
         {
             MessagingCenter.Send(this, "ChangedUser");
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+        }
+
+        private bool Validate()
+        {
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(ConfirmPassword))
+            {
+                DependencyService.Resolve<IMessage>().LongAlert(AppResources.strFillData);
+                return false;
+            }
+            return true;
         }
 
         #endregion

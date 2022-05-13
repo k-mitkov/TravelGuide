@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using TravelGuide.Resources.Resx;
 using WarehouseMobile.Commands;
@@ -28,7 +27,7 @@ namespace TravelGuide.ViewModels
         /// <summary>
         /// Форматирана версия на продукта
         /// </summary>
-        public string ProductVersion => $"{AppResources.strVersion} 1.0.1";
+        public string ProductVersion => $"{AppResources.ResourceManager.GetString("strVersion", AppResources.Culture)} 1.0.1";
 
         /// <summary>
         /// Копирайт

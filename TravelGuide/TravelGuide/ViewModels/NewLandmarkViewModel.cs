@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using TravelGuide.Intefaces;
 using TravelGuide.Models;
 using Xamarin.Forms;
 
@@ -14,7 +15,7 @@ namespace TravelGuide.ViewModels
 
         public NewLandmarkViewModel()
         {
-            SaveCommand = new Command(OnSave, ValidateSave);
+            SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
@@ -44,7 +45,8 @@ namespace TravelGuide.ViewModels
         private async void OnCancel()
         {
             // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
+            //await Shell.Current.GoToAsync("..");
+            var a = DependencyService.Resolve<IPhotoPickerService>().GetImageStreamAsync();
         }
 
         private async void OnSave()

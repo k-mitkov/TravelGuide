@@ -2,20 +2,69 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:TravelGuide.ViewModels"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              x:Class="TravelGuide.Views.MainPage">
-    
+
+    <Shell.TitleView>
+        <Label
+            FontAttributes="Bold"
+            Style="{StaticResource mainTabTittleStyle}"
+            Text="{toolkit:Translate strHome}"
+            TextColor="{DynamicResource WhiteTextColor}" />
+    </Shell.TitleView>
+
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
         <Grid>
-            <Image Aspect="AspectFill" HeightRequest="100" WidthRequest="100">
-                <Image.Source>
-                    <FileImageSource File="{Binding Image2}" />
-                </Image.Source>
-            </Image>
+            <CollectionView
+                HorizontalOptions="FillAndExpand"
+                ItemsSource="{Binding Landmars}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedLandmars}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="5"
+                              HeightRequest="100">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{DynamicResource MainBackgroundColor}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Frame Margin="0"
+                               Padding="0"
+                               BackgroundColor="{DynamicResource MainBackgroundColor}"
+                               BorderColor="{DynamicResource AccentColor}">
+                                <Grid ColumnDefinitions="*,3*" ColumnSpacing="10">
+                                    <Image
+                                        Margin="5,5,0,5"
+                                        Grid.Column="0"
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="FillAndExpand"
+                                        Source="{Binding Image}"
+                                        WidthRequest="100"
+                                        HeightRequest="100"
+                                        VerticalOptions="FillAndExpand"/>
+                                    <StackLayout VerticalOptions="CenterAndExpand" Grid.Column="1" Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding Name}" FontAttributes="Bold" TextColor="{DynamicResource DynamicTextColor}"/>
+                                            <Label Text="{Binding Distance, Converter={StaticResource distanceConverter}}" HorizontalOptions="EndAndExpand" Margin="0,0,20,0" TextColor="{DynamicResource DynamicTextColor}"/>
+                                        </StackLayout>
+                                        <Label Margin="0,0,10,0" TextColor="{DynamicResource DynamicTextColor}" LineBreakMode="TailTruncation" MaxLines="2"  Text="{Binding Description}"/>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

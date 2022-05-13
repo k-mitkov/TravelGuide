@@ -61,6 +61,141 @@ namespace TravelGuide.Resources.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string strAbout {
+            get {
+                return ResourceManager.GetString("strAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new landmark.
+        /// </summary>
+        internal static string strAddNewLandmark {
+            get {
+                return ResourceManager.GetString("strAddNewLandmark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        internal static string strConfirmPassword {
+            get {
+                return ResourceManager.GetString("strConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string strDescription {
+            get {
+                return ResourceManager.GetString("strDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        internal static string strDetails {
+            get {
+                return ResourceManager.GetString("strDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        internal static string strEmail {
+            get {
+                return ResourceManager.GetString("strEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter username and password.
+        /// </summary>
+        internal static string strEnterUsernameAndPassword {
+            get {
+                return ResourceManager.GetString("strEnterUsernameAndPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please fill in the data.
+        /// </summary>
+        internal static string strFillData {
+            get {
+                return ResourceManager.GetString("strFillData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string strHome {
+            get {
+                return ResourceManager.GetString("strHome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to km.
+        /// </summary>
+        internal static string strKm {
+            get {
+                return ResourceManager.GetString("strKm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string strLanguage {
+            get {
+                return ResourceManager.GetString("strLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        internal static string strLogin {
+            get {
+                return ResourceManager.GetString("strLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        internal static string strLogout {
+            get {
+                return ResourceManager.GetString("strLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Account.
+        /// </summary>
+        internal static string strMyAccount {
+            get {
+                return ResourceManager.GetString("strMyAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string strName {
+            get {
+                return ResourceManager.GetString("strName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string strPassword {
@@ -70,11 +205,92 @@ namespace TravelGuide.Resources.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        internal static string strRegister {
+            get {
+                return ResourceManager.GetString("strRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to register now.
+        /// </summary>
+        internal static string strRegisterNow {
+            get {
+                return ResourceManager.GetString("strRegisterNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string strSave {
+            get {
+                return ResourceManager.GetString("strSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string strSettings {
+            get {
+                return ResourceManager.GetString("strSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme.
+        /// </summary>
+        internal static string strTheme {
+            get {
+                return ResourceManager.GetString("strTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sofia, bul. Kl.Ohridski 8.
+        /// </summary>
+        internal static string strTUAddress {
+            get {
+                return ResourceManager.GetString("strTUAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload photo.
+        /// </summary>
+        internal static string strUploadPhoto {
+            get {
+                return ResourceManager.GetString("strUploadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        internal static string strUsername {
+            get {
+                return ResourceManager.GetString("strUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version.
         /// </summary>
         internal static string strVersion {
             get {
                 return ResourceManager.GetString("strVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a comment.
+        /// </summary>
+        internal static string strWriteComment {
+            get {
+                return ResourceManager.GetString("strWriteComment", resourceCulture);
             }
         }
     }

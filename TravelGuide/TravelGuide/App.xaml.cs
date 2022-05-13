@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using TravelGuide.Enums;
+using TravelGuide.Extensions;
+using TravelGuide.Resources.Resx;
 using TravelGuide.Resources.Themes;
 using TravelGuide.Services;
 using TravelGuide.Views;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,6 +20,7 @@ namespace TravelGuide
         {
             InitializeComponent();
 
+            SetLanguage();
             SetTheme();
 
             DependencyService.Register<MockDataStore>();
@@ -32,6 +37,18 @@ namespace TravelGuide
 
         protected override void OnResume()
         {
+        }
+
+        /// <summary>
+        /// Задава език на приложението
+        /// </summary>
+        private void SetLanguage()
+        {
+            LocalizationResourceManager.Current.PropertyChanged += (a, b) => AppResources.Culture = LocalizationResourceManager.Current.CurrentCulture;
+            LocalizationResourceManager.Current.Init(AppResources.ResourceManager);
+
+            var cultureName = (Settings.Settings.Lenguage).GetDescription();
+            LocalizationResourceManager.Current.CurrentCulture = cultureName == null ? CultureInfo.CurrentCulture : new CultureInfo(cultureName);
         }
 
         /// <summary>

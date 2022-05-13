@@ -2,12 +2,21 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:TravelGuide.ViewModels"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              BackgroundColor="{DynamicResource SecondPageBackgroundColor}"
              x:Class="TravelGuide.Views.AboutPage">
     <ContentPage.BindingContext>
         <vm:AboutPageViewModel/>
     </ContentPage.BindingContext>
-    
+
+    <Shell.TitleView>
+        <Label
+            FontAttributes="Bold"
+            Style="{StaticResource mainTabTittleStyle}"
+            Text="{toolkit:Translate strAbout}"
+            TextColor="{DynamicResource WhiteTextColor}" />
+    </Shell.TitleView>
+
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -32,7 +41,7 @@
                     TextColor="{DynamicResource WhiteTextColor}" />
                 <Label
                     HorizontalOptions="Center"
-                    Text="София, бул. Кл.Охридски 8"
+                    Text="{toolkit:Translate strTUAddress}"
                     TextColor="{DynamicResource WhiteTextColor}" />
                 <Button
                     BackgroundColor="{DynamicResource Transparent}"
@@ -53,15 +62,6 @@
                 HeightRequest="100"
                 Source="Resources/TUSofia.png"
                 VerticalOptions="Center" />
-            <!--<Image Grid.Row="2">
-                <Image.Source>
-                    <FontImageSource
-                        FontFamily="WarehouseIcons"
-                        Glyph="{x:Static h:IconFont.MicroinvestLogo}"
-                        Size="100"
-                        Color="{DynamicResource WhiteTextColor}" />
-                </Image.Source>
-            </Image>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

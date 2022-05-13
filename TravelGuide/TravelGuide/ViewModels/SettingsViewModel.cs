@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using TravelGuide.Enums;
+using TravelGuide.Extensions;
+using TravelGuide.Models;
 using TravelGuide.Resources.Themes;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
@@ -14,8 +16,8 @@ namespace TravelGuide.ViewModels
     {
         #region Declarations
 
-        private LenguageEnum selectedLanguage;
-        private IEnumerable<LenguageEnum> supportedLanguages;
+        private SupportedLanguage selectedLanguage;
+        private IEnumerable<SupportedLanguage> supportedLanguages;
 
         #endregion
 
@@ -48,11 +50,10 @@ namespace TravelGuide.ViewModels
             }
         }
 
-
         /// <summary>
         /// Избран език на програмата
         /// </summary>
-        public LenguageEnum SelectedLanguage
+        public SupportedLanguage SelectedLanguage
         {
             get => selectedLanguage;
             set
@@ -61,9 +62,9 @@ namespace TravelGuide.ViewModels
                 {
                     selectedLanguage = value;
 
-                    Settings.Settings.Lenguage = value;
+                    Settings.Settings.Lenguage = value.LanguageType;
 
-                    var langName = value.ToString();
+                    var langName = value.LanguageType.GetDescription();
                     LocalizationResourceManager.Current.CurrentCulture = langName == null ? CultureInfo.CurrentCulture : new CultureInfo(langName);
 
                     OnPropertyChanged();
@@ -74,15 +75,12 @@ namespace TravelGuide.ViewModels
         /// <summary>
         /// Поддържани от програмата езици
         /// </summary>
-        public IEnumerable<LenguageEnum> SupportedLanguages
+        public IEnumerable<SupportedLanguage> SupportedLanguages
         {
-            get => supportedLanguages ?? (supportedLanguages = new List<LenguageEnum>()
+            get => supportedLanguages ?? (supportedLanguages = new List<SupportedLanguage>()
             {
-                //new SupportedLanguage(LanguageEnum.English,"Resources/UnitedKingdom.png"),
-                //new SupportedLanguage(LanguageEnum.Русский,"Resources/Russia.png"),
-                //new SupportedLanguage(LanguageEnum.Български,"Resources/Bulgaria.png")
-                LenguageEnum.English,
-                LenguageEnum.Български
+                new SupportedLanguage(LanguageEnum.English,"Resources/UnitedKingdom.png"),
+                new SupportedLanguage(LanguageEnum.Български,"Resources/Bulgaria.png")
             });
         }
 
@@ -92,8 +90,7 @@ namespace TravelGuide.ViewModels
 
         public SettingsViewModel()
         {
-            //SelectedLanguage = SupportedLanguages.FirstOrDefault(sp => sp == Settings.Settings.Lenguage);
-            SelectedLanguage = LenguageEnum.English;
+            SelectedLanguage = SupportedLanguages.FirstOrDefault(sp => sp.LanguageType == Settings.Settings.Lenguage);
         }
 
         #endregion

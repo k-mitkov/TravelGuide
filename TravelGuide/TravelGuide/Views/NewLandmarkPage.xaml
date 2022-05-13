@@ -3,19 +3,119 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TravelGuide.Views.NewLandmarkPage"
              Shell.PresentationMode="ModalAnimated"
-             Title="New Item"
+             xmlns:h="clr-namespace:TravelGuide.Helpers"
+             xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true">
+
+    <Shell.TitleView>
+        <Label
+            FontAttributes="Bold"
+            Style="{StaticResource mainTabTittleStyle}"
+            Text="{toolkit:Translate strAddNewLandmark}"
+            TextColor="{DynamicResource WhiteTextColor}" />
+    </Shell.TitleView>
+
     <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
-            </StackLayout>
+        <StackLayout
+                Grid.Row="1"
+                Margin="20"
+                IsEnabled="True"
+                Orientation="Vertical"
+            VerticalOptions="CenterAndExpand">
+
+            <Frame HeightRequest="200" Margin="0"
+                               Padding="0"
+                               BackgroundColor="{DynamicResource MainBackgroundColor}"
+                               BorderColor="{DynamicResource AccentColor}">
+                <Grid ColumnSpacing="10">
+                    <!--<Image
+                                        Margin="5"
+                                        Aspect="AspectFit"
+                                        HorizontalOptions="FillAndExpand"
+                                        Source="Resources/uploadimageicon.jpg"
+                                        WidthRequest="100"
+                                        HeightRequest="100"
+                                        VerticalOptions="FillAndExpand"/>-->
+                    <Image Margin="5" VerticalOptions="CenterAndExpand" Aspect="AspectFit">
+                        <Image.Source>
+                            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.Image}"
+                                Size="100"
+                                    Color="{DynamicResource GrayIconColor}" />
+                        </Image.Source>
+                    </Image>
+                    <Image
+                                        Margin="5"
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="FillAndExpand"
+                                        Source=""
+                                        WidthRequest="100"
+                                        HeightRequest="100"
+                                        VerticalOptions="FillAndExpand"/>
+                    
+                    <Button Text="{toolkit:Translate strUploadPhoto}" Command="{Binding CancelCommand}" Style="{DynamicResource Key=SaveButton}" HorizontalOptions="FillAndExpand"/>
+                </Grid>
+                
+            </Frame>
+
+            <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
+                <StackLayout Orientation="Horizontal">
+                    <Image Margin="5,5,0,0" VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.Landmark}"
+                                    Size="24"
+                                    Color="{DynamicResource GrayIconColor}" />
+                        </Image.Source>
+                    </Image>
+
+                    <Entry
+                            x:Name="enryUsername"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            HorizontalOptions="FillAndExpand"
+                            Placeholder="{toolkit:Translate strName}"
+                            Style="{StaticResource entryStyle}"
+                            Text="{Binding Username, Mode=TwoWay}" />
+
+                </StackLayout>
+
+            </Frame>
+
+            <Frame Padding="5" BackgroundColor="{DynamicResource SecondBackgroundColor}">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Image Margin="5,5,0,0" VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                    FontFamily="materialdesignicons-webfont"
+                                    Glyph="{x:Static h:IconFont.BookOpen}"
+                                    Size="24"
+                                    Color="{DynamicResource GrayIconColor}" />
+                        </Image.Source>
+                    </Image>
+
+                    <Editor
+                            x:Name="enryPassword"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                        HeightRequest="200"
+                            HorizontalOptions="FillAndExpand"
+                        
+                            Placeholder="{toolkit:Translate strDescription}"
+                            Style="{StaticResource entryStyle}"
+                            Text="{Binding Password, Mode=TwoWay}" />
+
+                </Grid>
+            </Frame>
+
+            <Button Margin="0" Text="{toolkit:Translate strSave}" Command="{Binding SaveCommand}" Style="{DynamicResource Key=SaveButton}" HorizontalOptions="FillAndExpand"></Button>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" Style="{StaticResource ActivityIndicatorStyle}" />
+
         </StackLayout>
     </ContentPage.Content>
     

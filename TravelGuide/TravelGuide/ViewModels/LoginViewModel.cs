@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using TravelGuide.Intefaces;
+using TravelGuide.Resources.Resx;
 using TravelGuide.Services;
 using TravelGuide.Views;
 using WarehouseMobile.Commands;
@@ -57,10 +59,10 @@ namespace TravelGuide.ViewModels
 
         private ICommand registerCommand;
 
-        ///// <summary>
-        ///// Команда при показване на екрана
-        ///// </summary>
-        //private ICommand onAppearingCommand;
+        /// <summary>
+        /// Команда при показване на екрана
+        /// </summary>
+        private ICommand onAppearingCommand;
 
         #endregion
 
@@ -86,10 +88,10 @@ namespace TravelGuide.ViewModels
 
         public ICommand RegisterCommand => registerCommand ?? (registerCommand = new ExtendedCommand(NavigateToRegisterScreen));
 
-        ///// <summary>
-        ///// Команда при показване на екрана
-        ///// </summary>
-        //public ICommand OnAppearingCommand => onAppearingCommand ?? (onAppearingCommand = new ExtendedCommand(OnAppearing));
+        /// <summary>
+        /// Команда при показване на екрана
+        /// </summary>
+        public ICommand OnAppearingCommand => onAppearingCommand ?? (onAppearingCommand = new ExtendedCommand(OnAppearing));
 
         #endregion
 
@@ -178,8 +180,9 @@ namespace TravelGuide.ViewModels
         /// <param name="obj"></param>
         private void OnAppearing(object obj)
         {
-            //usersHelper.Reset();
-            //LoadUsers();
+            Settings.Settings.LoggedUserId = -1;
+            Username = null;
+            Password = null;
         }
 
         ///// <summary>
@@ -206,6 +209,13 @@ namespace TravelGuide.ViewModels
         /// <param name="obj"></param>
         private async void Login(object obj)
         {
+            if (!Validate())
+            {
+                return;
+            }
+
+            Settings.Settings.LoggedUserId = 1;
+
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
 
@@ -252,6 +262,16 @@ namespace TravelGuide.ViewModels
         private async void NavigateToRegisterScreen(object _)
         {
             await Shell.Current.GoToAsync($"//{nameof(RegisterPage)}");
+        }
+
+        private bool Validate()
+        {
+            if(string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+            {
+                DependencyService.Resolve<IMessage>().LongAlert(AppResources.strEnterUsernameAndPassword);
+                return false;
+            }
+            return true;
         }
 
         #endregion

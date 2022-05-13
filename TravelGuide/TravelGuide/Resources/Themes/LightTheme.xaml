@@ -2,9 +2,9 @@
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                    x:Class="TravelGuide.Resources.Themes.LightTheme">
-    <Color x:Key="Primary">#6ef07d</Color>
-    <Color x:Key="AccentColor">#2aa5f7</Color>
-    <Color x:Key="ButtonColor">#6ef07d</Color>
+    <Color x:Key="Primary">#58b062</Color>
+    <Color x:Key="AccentColor">#e4e864</Color>
+    <Color x:Key="ButtonColor">#58b062</Color>
     <Color x:Key="PageBackgroundColor">#f7f7f7</Color>
     <Color x:Key="SecondPageBackgroundColor">#58b062</Color>
     <Color x:Key="MainBackgroundColor">#efefef</Color>
@@ -21,7 +21,7 @@
     <Color x:Key="UnselectedColor">White</Color>
     <Color x:Key="DisabledColor">#B4FFFFFF</Color>
     <Color x:Key="Transparent">Transparent</Color>
-    <Color x:Key="NavColor">#09275d</Color>
+    <Color x:Key="NavColor">#58b062</Color>
     <Color x:Key="HyperlinksColor">Blue</Color>
     <Color x:Key="RedColor">Red</Color>
     <Color x:Key="GreenColor">Green</Color>

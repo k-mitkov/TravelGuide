@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TravelGuide.ViewModels;
 using TravelGuide.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace TravelGuide
@@ -11,6 +12,7 @@ namespace TravelGuide
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute(nameof(StartupPage), typeof(StartupPage));
             Routing.RegisterRoute(nameof(LandmarkDetailPage), typeof(LandmarkDetailPage));
             Routing.RegisterRoute(nameof(NewLandmarkPage), typeof(NewLandmarkPage));
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
@@ -18,6 +20,8 @@ namespace TravelGuide
             Routing.RegisterRoute(nameof(AboutPage), typeof(AboutPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             Routing.RegisterRoute(nameof(AccountPage), typeof(AccountPage));
+
+            CurrentItem = startupPage;
         }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)

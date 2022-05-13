@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TravelGuide.Converters"
              x:Class="TravelGuide.App"
              xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!--
@@ -8,7 +9,6 @@
     -->
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="Primary">#2196F3</Color>
             <!--<Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -268,8 +268,16 @@
                 <Setter Property="Color" Value="{DynamicResource Primary}" />
             </Style>
 
+            <converters:DescriptionConverter x:Key="descriptionConverter" />
+            <converters:DistanceConverter x:Key="distanceConverter" />
+
+            <OnPlatform x:Key="materialdesignicons-webfont" x:TypeArguments="x:String">
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+            </OnPlatform>
+
             <!--<locator:ViewModelLocator x:Key="Locator" />
 
+            
             <converters:OppositeConverter x:Key="oppositeConverter" />
             <converters:StringNullOrEmptyBoolConverter x:Key="stringNullOrEmptyBoolConverter" />
             <converters:DoubleConverter x:Key="doubleConverter" />
