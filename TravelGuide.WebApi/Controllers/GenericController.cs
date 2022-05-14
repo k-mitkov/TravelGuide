@@ -23,7 +23,7 @@ namespace TravelGuide.WebApi.Controllers
         }
 
         [HttpGet("GetOneByCondition/{where}")]
-        public async Task<ActionResult<TEntity>> GetOneByCondition([FromRoute] string query)
+        public virtual async Task<ActionResult<TEntity>> GetOneByCondition([FromRoute] string query)
         {
             try
             {

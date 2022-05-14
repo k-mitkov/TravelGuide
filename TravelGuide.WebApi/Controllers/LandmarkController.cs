@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -53,7 +55,7 @@ namespace TravelGuide.WebApi.Controllers
                 }
                 return BadRequest();
             }
-            catch (Exception)
+            catch
             {
                 return BadRequest();
             }
@@ -76,11 +78,40 @@ namespace TravelGuide.WebApi.Controllers
 
                 return Ok(landmarkWrappers);
             }
-            catch (Exception)
+            catch
             {
                 return BadRequest();
             }
-            
+
+        }
+
+        [HttpGet("GetLandmarkByCondition/{query}")]
+        public async Task<ActionResult<LandmarkWrapper>> GetLandmarkByCondition([FromRoute] string query)
+        {
+            try
+            {
+                var p = Expression.Parameter(typeof(Landmark), "i");
+
+                var e = DynamicExpressionParser.ParseLambda(new[] { p }, null, query);
+
+                var typedExpression = (Expression<Func<Landmark, bool>>)e;
+
+                var dbLandmark = await repository.SelectAsync(typedExpression);
+                var imageBytes = await System.IO.File.ReadAllBytesAsync(dbLandmark.ImagePath);
+
+                LandmarkWrapper landmark = new LandmarkWrapper()
+                {
+                    Landmark = dbLandmark,
+                    Image = imageBytes
+                };
+
+                return Ok(landmark);
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

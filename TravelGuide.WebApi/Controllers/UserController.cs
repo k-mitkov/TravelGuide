@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Threading.Tasks;
-using TravelGuide.ClassLibrary.Models;
 using TravelGuide.Database.Entities;
-using TravelGuide.WebApi.Helpers;
 
 namespace TravelGuide.WebApi.Controllers
 {
@@ -14,45 +9,30 @@ namespace TravelGuide.WebApi.Controllers
     [Route("api/[controller]")]
     public class UserController : GenericController<User>
     {
-        private string ImageDirectory = Environment.GetEnvironmentVariable("LocalAppData") + "\\TravelGuide" + "\\Users";
-
         [HttpPost("Register")]
-        public async Task<ActionResult<bool>> Register([FromBody]UserWrapper user)
+        public async Task<ActionResult<User>> Register([FromBody]User user)
         {
             try
             {
-                var checkUser = await repository.SelectAsync(u => u.Username == user.User.Username || u.Email == user.User.Email);
+                var checkUser = await repository.SelectAsync(u => u.Username == user.Username || u.Email == user.Email);
 
                 if (checkUser != null)
                 {
-                    return Ok(false);
+                    return Ok(null);
                 }
 
-                using (var ms = new MemoryStream(user.Image))
-                {
-                    if (!Directory.Exists(ImageDirectory))
-                    {
-                        Directory.CreateDirectory(ImageDirectory);
-                    }
+                user = await repository.Insert(user);
 
-                    var image = Image.FromStream(ms);
-                    user.User.ImagePath = (ImageDirectory + "//" + user.User.Username + ".png").GetPath();
-
-                    image.Save(user.User.ImagePath);
-
-                    await repository.Insert(user.User);
-
-                    return Ok(true);
-                }
+                return Ok(user);
             }
             catch(Exception)
             {
-                return Ok(false);
+                return BadRequest();
             }
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<bool>> Login([FromBody]User user)
+        public async Task<ActionResult<User>> Login([FromBody]User user)
         {
             try
             {
@@ -60,31 +40,15 @@ namespace TravelGuide.WebApi.Controllers
 
                 if (checkUser != null)
                 {
-                    return Ok(true);
+                    return Ok(checkUser);
                 }
 
-                return Ok(false);
+                return Ok(null);
             }
             catch (Exception)
             {
-                return Ok(false);
+                return BadRequest();
             }
-        }
-
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<UserWrapper>> GetAll()
-        {
-            List<UserWrapper> userWrappers = new List<UserWrapper>();
-            var users = await repository.SelectAllAsync();
-
-            foreach (var user in users)
-            {
-                var imageBytes = await System.IO.File.ReadAllBytesAsync(user.ImagePath);
-
-                userWrappers.Add(new UserWrapper(user, imageBytes));
-            }
-
-            return Ok(userWrappers);
         }
     }
 }

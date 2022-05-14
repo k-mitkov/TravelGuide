@@ -90,8 +90,8 @@ namespace DBTest
 
             User user = new User()
             {
-                Username = "proba",
-                Password = "proba"
+                Username = "Proba3",
+                Password = "Proba3"
             };
 
             client = new HttpClient(clientHandler);
@@ -107,7 +107,29 @@ namespace DBTest
 
             if(response5.IsSuccessStatusCode)
             {
-                var isLogged = await response5.Content.ReadAsAsync<bool>();
+                var user1 = await response5.Content.ReadAsAsync<User>();
+            }
+
+            var response6 = await client.PostAsJsonAsync("Register", user);
+
+            if (response6.IsSuccessStatusCode)
+            {
+                var user2 = await response5.Content.ReadAsAsync<User>();
+            }
+
+            client = new HttpClient(clientHandler);
+
+            // За избиране на твой адрес виж Program в TravelGuide.WebApi проекта. Също и connectionString-ът в проекта с базата трябва да промениш.
+            //Вместо landmark, може да са user и comment, за да се извикат другите контролери от API-ът.
+            client.BaseAddress = new Uri("https://192.168.0.102:5001/api/comment/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
+
+            var response7 = await client.GetAsync("GetCommentWithUsername/" + 1.ToString());
+
+            if (response7.IsSuccessStatusCode)
+            {
+                var comments = await response5.Content.ReadAsAsync<CommentWrapper>();
             }
         }
     }
