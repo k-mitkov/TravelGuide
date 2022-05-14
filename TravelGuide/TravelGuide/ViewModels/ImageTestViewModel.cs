@@ -21,7 +21,7 @@ namespace TravelGuide.ViewModels
 
         public ImageTestViewModel()
         {
-            Task.Run(async () =>await GetLandmark());
+            Task.Run(async () => await GetLandmark());
         }
 
         public ImageSource ImagePath
@@ -79,29 +79,14 @@ namespace TravelGuide.ViewModels
 
         private async Task Register()
         {
-            FileResult img = await MediaPicker.PickPhotoAsync();
-
-            Stream stream = await img.OpenReadAsync();
-
-            var imageBytes = ImageHelper.GetImage(stream);
-
-            var user = new UserWrapper()
+            var user = new User()
             {
-                User = new User()
-                {
-                    Username = "proba2",
-                    Password = "proba2",
-                    Email = "proba2@abv.bg",
+                Username = "proba2",
+                Password = "proba2",
+                Email = "proba2@abv.bg",
 
-                },
-                Image = imageBytes
             };
-
-            if (stream != null)
-            {
-                ImagePath = ImageSource.FromStream(() => new MemoryStream(imageBytes));
-            }
-
+       
             HttpClient client;
             MediaTypeWithQualityHeaderValue mediaTypeJson;
             HttpClientHandler clientHandler;
@@ -155,7 +140,7 @@ namespace TravelGuide.ViewModels
                     ImagePath = ImageSource.FromStream(() => mem);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
