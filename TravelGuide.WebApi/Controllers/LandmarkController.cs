@@ -1,21 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting.Internal;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Linq.Dynamic.Core;
-using System.Linq.Expressions;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using TravelGuide.ClassLibrary.Models;
-using TravelGuide.Database;
 using TravelGuide.Database.Entities;
-using TravelGuide.Database.Interfaces;
-using TravelGuide.Database.Repositories;
+using TravelGuide.WebApi.Helpers;
 
 namespace TravelGuide.WebApi.Controllers
 {
@@ -40,7 +33,8 @@ namespace TravelGuide.WebApi.Controllers
                         }
 
                         var image = Image.FromStream(ms);
-                        landmark.Landmark.ImagePath = ImageDirectory + "//" + landmark.Landmark.Name1 + ".png";
+                        landmark.Landmark.ImagePath = (ImageDirectory + "//" + (landmark.Landmark.Name1 ?? landmark.Landmark.Name2) + ".png").GetPath();
+
                         image.Save(landmark.Landmark.ImagePath);
                     }
 

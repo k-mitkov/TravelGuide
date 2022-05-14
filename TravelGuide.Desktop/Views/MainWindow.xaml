@@ -30,143 +30,137 @@
                             BorderBrush="Black"
                             BorderThickness="1"
                             CornerRadius="5">
-                            <Grid Margin="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <Grid Margin="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="4*" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="auto" />
                                 </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-
-                                <Label
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Name1" />
-                                <Label
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="{Binding Landmark.Name1}" />
-
-                                <Label
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Description1" />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    Margin="0,5,0,0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="{Binding Landmark.Description1}" />
-
-                                <Label
-                                    Grid.Column="2"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Name2" />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="{Binding Landmark.Name2}" />
-
-                                <Label
-                                    Grid.Column="3"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Description2" />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="3"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="{Binding Landmark.Description2}" />
-
-                                <Label
-                                    Grid.Column="4"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Latitude" />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="4"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="{Binding Landmark.Latitude}" />
-
-                                <Label
-                                    Grid.Column="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Longtitude" />
-                                <Label
-                                    Grid.Row="1"
-                                    Grid.Column="5"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="{Binding Landmark.Longitude}" />
-
-                                <Label
-                                    Grid.Column="6"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Content="Image Path" />
-                                <Grid
-                                    Grid.Row="1"
-                                    Grid.Column="6"
-                                    VerticalAlignment="Center">
-
+                                
+                                <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBox
-                                        x:Name="ImageTextBox"
-                                        Grid.Column="0"
-                                        VerticalContentAlignment="Center"
-                                        Text="{Binding ImagePath, Mode=TwoWay}"
-                                        TextWrapping="NoWrap" />
-                                    <Button
-                                        ToolTip="Choose picture"
-                                        Grid.Column="1"
-                                        Width="{Binding ElementName=ImageTextBox, Path=ActualHeight}"
-                                        Margin="5,0,0,0"
-                                        Command="{Binding GetImagePathCommand}"
-                                        Style="{StaticResource FileButton}" />
-                                </Grid>
-                                <Button
-                                    ToolTip="Accept"
-                                    Grid.Column="7"
-                                    Margin="5,0,0,0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Command="{Binding AddCommand}"
-                                    Content="Add"
-                                    Style="{StaticResource OkButton}" />
-                                <Button
-                                    ToolTip="Decline"
-                                    Grid.Row="1"
-                                    Grid.Column="7"
-                                    Margin="5,0,0,0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Command="{Binding CancelCommand}"
-                                    Content="Cancel"
-                                    Style="{StaticResource CancelButton}" />
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
 
+                                    <StackPanel VerticalAlignment="Top">
+                                        <Label HorizontalAlignment="Center" Content="Name1" />
+                                        <TextBox
+                                            Margin="5,0,5,0"
+                                            VerticalContentAlignment="Center"
+                                            MaxLength="255"
+                                            Text="{Binding Landmark.Name1}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="1" VerticalAlignment="Top">
+                                        <Label HorizontalAlignment="Center" Content="Name2" />
+                                        <TextBox
+                                            Margin="5,0,5,0"
+                                            VerticalContentAlignment="Center"
+                                            MaxLength="255"
+                                            Text="{Binding Landmark.Name2}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Top">
+                                        <Label HorizontalAlignment="Center" Content="Description1" />
+                                        <TextBox
+                                            Margin="5,0,5,0"
+                                            VerticalContentAlignment="Center"
+                                            Text="{Binding Landmark.Description1}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Top">
+                                        <Label HorizontalAlignment="Center" Content="Description2" />
+                                        <TextBox
+                                            Margin="5,0,5,0"
+                                            VerticalContentAlignment="Center"
+                                            MaxLength="255"
+                                            Text="{Binding Landmark.Description2}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Top">
+                                        <Label HorizontalAlignment="Center" Content="Latitude" />
+                                        <TextBox
+                                            Margin="5,0,5,0"
+                                            VerticalContentAlignment="Center"
+                                            MaxLength="255"
+                                            Text="{Binding Landmark.Latitude}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        VerticalAlignment="Top">
+                                        <Label HorizontalAlignment="Center" Content="Longtitude" />
+                                        <TextBox
+                                            Margin="5,0,5,0"
+                                            VerticalContentAlignment="Center"
+                                            MaxLength="255"
+                                            Text="{Binding Landmark.Longitude}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <StackPanel Grid.Column="1">
+                                    <Image Height="250" Source="{Binding ImagePath}" />
+
+                                    <Grid
+                                        Margin="0,5,0,0"
+                                        Grid.Row="1"
+                                        Grid.Column="3"
+                                        VerticalAlignment="Center">
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox
+                                            x:Name="ImageTextBox"
+                                            Grid.Column="0"
+                                            VerticalContentAlignment="Center"
+                                            Text="{Binding ImagePath, Mode=TwoWay}"
+                                            TextWrapping="NoWrap" />
+                                        <Button
+                                            Grid.Column="1"
+                                            Width="{Binding ElementName=ImageTextBox, Path=ActualHeight}"
+                                            Margin="5,0,0,0"
+                                            Command="{Binding GetImagePathCommand}"
+                                            Style="{StaticResource FileButton}"
+                                            ToolTip="Choose picture" />
+                                    </Grid>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2">
+                                    <Button
+                                        Margin="5,0,0,5"
+                                        HorizontalAlignment="Center"
+                                        Command="{Binding AddCommand}"
+                                        Content="Add"
+                                        Style="{StaticResource OkButton}"
+                                        ToolTip="Accept" />
+                                    <Button
+                                        Margin="5,0,0,0"
+                                        HorizontalAlignment="Center"
+                                        Command="{Binding CancelCommand}"
+                                        Content="Cancel"
+                                        Style="{StaticResource CancelButton}"
+                                        ToolTip="Decline" />
+                                </StackPanel>
                             </Grid>
                         </Border>
                     </DataTemplate>

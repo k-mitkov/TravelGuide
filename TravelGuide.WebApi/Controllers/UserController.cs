@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using TravelGuide.ClassLibrary.Models;
 using TravelGuide.Database.Entities;
+using TravelGuide.WebApi.Helpers;
 
 namespace TravelGuide.WebApi.Controllers
 {
@@ -36,7 +36,8 @@ namespace TravelGuide.WebApi.Controllers
                     }
 
                     var image = Image.FromStream(ms);
-                    user.User.ImagePath = ImageDirectory + "//" + user.User.Username + ".png";
+                    user.User.ImagePath = (ImageDirectory + "//" + user.User.Username + ".png").GetPath();
+
                     image.Save(user.User.ImagePath);
 
                     await repository.Insert(user.User);
