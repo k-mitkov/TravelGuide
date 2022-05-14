@@ -52,5 +52,7 @@ namespace TravelGuide.Settings
                 Preferences.Set(nameof(LoggedUserId), value);
             }
         }
+
+        public static Location Location { get; set; }
     }
 }

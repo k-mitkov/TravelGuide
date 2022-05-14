@@ -9,6 +9,10 @@ using Android.Graphics;
 using System.Threading.Tasks;
 using Android.Content;
 using System.IO;
+using static Xamarin.Essentials.Permissions;
+using Xamarin.Essentials;
+using AndroidX.Core.Content;
+using Android;
 
 namespace TravelGuide.Droid
 {
@@ -30,6 +34,11 @@ namespace TravelGuide.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessFineLocation) != (int)Permission.Granted)
+            {
+                RequestPermissions(new string[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation}, 0);
+            }
 
             Window.ClearFlags(WindowManagerFlags.TranslucentStatus);
             Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
@@ -56,8 +65,6 @@ namespace TravelGuide.Droid
                 {
                     Android.Net.Uri uri = intent.Data;
                     Stream stream = ContentResolver.OpenInputStream(uri);
-
-                    // Set the Stream as the completion of the Task
                     PickImageTaskCompletionSource.SetResult(stream);
                 }
                 else
@@ -65,6 +72,19 @@ namespace TravelGuide.Droid
                     PickImageTaskCompletionSource.SetResult(null);
                 }
             }
+
+        }
+
+        public async Task<PermissionStatus> CheckAndRequestPermissionAsync<T>(T permission)
+            where T : BasePermission
+        {
+            var status = await permission.CheckStatusAsync();
+            if (status != PermissionStatus.Granted)
+            {
+                status = await permission.RequestAsync();
+            }
+
+            return status;
         }
     }
 }

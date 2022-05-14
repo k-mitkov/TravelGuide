@@ -270,6 +270,7 @@
 
             <converters:DescriptionConverter x:Key="descriptionConverter" />
             <converters:DistanceConverter x:Key="distanceConverter" />
+            <converters:OppositeConverter x:Key="oppositeConverter" />
 
             <OnPlatform x:Key="materialdesignicons-webfont" x:TypeArguments="x:String">
                 <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using TravelGuide.Intefaces;
 using TravelGuide.Resources.Resx;
@@ -15,21 +16,6 @@ namespace TravelGuide.ViewModels
     public class RegisterViewModel : BaseViewModel
     {
         #region Declarations
-
-        ///// <summary>
-        ///// Хелпър за показване на съобшения
-        ///// </summary>
-        //private readonly IAlert alert;
-
-        ///// <summary>
-        ///// Помощен клас за потребителите в базата
-        ///// </summary>
-        //private readonly IUsersHelper usersHelper;
-
-        ///// <summary>
-        ///// Клас за запис на грешки
-        ///// </summary>
-        //private readonly IErrorLogger errorLogger;
 
         /// <summary>
         /// избрания потребител
@@ -68,8 +54,15 @@ namespace TravelGuide.ViewModels
 
         ///// <summary>
         ///// Команда при показване на екрана
-        ///// </summary>
-        //private ICommand onAppearingCommand;
+        /// </summary>
+        private ICommand onAppearingCommand;
+
+        protected string Pattern => @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+
+        /// <summary>
+        /// Регекс за валидация
+        /// </summary>
+        private Regex regexPattern;
 
         #endregion
 
@@ -77,9 +70,7 @@ namespace TravelGuide.ViewModels
 
         public RegisterViewModel()
         {
-            //this.alert = alert;
-            //this.usersHelper = usersHelper;
-            //this.errorLogger = errorLogger;
+            regexPattern = new Regex(Pattern);
         }
 
         #endregion
@@ -95,8 +86,8 @@ namespace TravelGuide.ViewModels
 
         ///// <summary>
         ///// Команда при показване на екрана
-        ///// </summary>
-        //public ICommand OnAppearingCommand => onAppearingCommand ?? (onAppearingCommand = new ExtendedCommand(OnAppearing));
+        /// </summary>
+        public ICommand OnAppearingCommand => onAppearingCommand ?? (onAppearingCommand = new ExtendedCommand(OnAppearing));
 
         #endregion
 
@@ -217,27 +208,12 @@ namespace TravelGuide.ViewModels
         /// <param name="obj"></param>
         private void OnAppearing(object obj)
         {
-            //usersHelper.Reset();
-            //LoadUsers();
+            Username = null;
+            Email = null;
+            Password = null;
+            ConfirmPassword = null;
         }
 
-        ///// <summary>
-        ///// Презарежда данните
-        ///// </summary>
-        //private void LoadUsers()
-        //{
-        //    Task.Run(async () =>
-        //    {
-        //        var users = (await usersHelper.GetUsersAsync()) as List<User>;
-
-        //        Users = users.Count > 1 ? new List<User>(users.Where(u => u.Id > 1).OrderBy(u => u.Name)) : new List<User>(users);
-
-        //        SelectedUser = Users.FirstOrDefault();
-        //        Password = string.Empty;
-
-        //        SettingsManager.IsLoggedIn = false;
-        //    }).Wait();
-        //}
 
         /// <summary>
         /// Валидира потребителя и извършва вход в приложението
@@ -251,38 +227,8 @@ namespace TravelGuide.ViewModels
             }
 
             Settings.Settings.LoggedUserId = 1;
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
+
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-
-            //try
-            //{
-            //    IsBusy = true;
-
-            //    if (Password == usersHelper.GetTemporaryServicePassword())
-            //    {
-            //        SettingsManager.LoggedUserID = 1;
-            //        SettingsManager.IsLoggedIn = true;
-            //        NavigateToMainScreen();
-            //    }
-            //    else if (SelectedUser.Password == CryptoHelper.Encrypt(Password.Equals(string.Empty) ? " " : Password))
-            //    {
-            //        SettingsManager.LoggedUserID = SelectedUser.Id.Value;
-            //        SettingsManager.IsLoggedIn = true;
-            //        NavigateToMainScreen();
-            //    }
-            //    else
-            //    {
-            //        await alert.ShowWarningAsync(AppResources.strInvalidPassword);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    await errorLogger.LogException(ex);
-            //}
-            //finally
-            //{
-            //    IsBusy = false;
-            //}
         }
 
         /// <summary>
@@ -296,9 +242,15 @@ namespace TravelGuide.ViewModels
 
         private bool Validate()
         {
+            Email = Email.Trim();
             if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(ConfirmPassword))
             {
                 DependencyService.Resolve<IMessage>().LongAlert(AppResources.strFillData);
+                return false;
+            }
+            if (!regexPattern.IsMatch(Email))
+            {
+                DependencyService.Resolve<IMessage>().LongAlert(AppResources.strInvalidEmail);
                 return false;
             }
             return true;

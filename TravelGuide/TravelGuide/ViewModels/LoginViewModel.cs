@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using TravelGuide.Intefaces;
 using TravelGuide.Resources.Resx;
 using TravelGuide.Services;
 using TravelGuide.Views;
 using WarehouseMobile.Commands;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using static Xamarin.Essentials.Permissions;
 
 namespace TravelGuide.ViewModels
 {
@@ -70,9 +73,6 @@ namespace TravelGuide.ViewModels
 
         public LoginViewModel()
         {
-            //this.alert = alert;
-            //this.usersHelper = usersHelper;
-            //this.errorLogger = errorLogger;
         }
 
         #endregion
@@ -180,6 +180,7 @@ namespace TravelGuide.ViewModels
         /// <param name="obj"></param>
         private void OnAppearing(object obj)
         {
+
             Settings.Settings.LoggedUserId = -1;
             Username = null;
             Password = null;
@@ -273,6 +274,8 @@ namespace TravelGuide.ViewModels
             }
             return true;
         }
+
+        
 
         #endregion
     }

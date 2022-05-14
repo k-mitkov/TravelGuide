@@ -144,6 +144,9 @@
   <data name="strHome" xml:space="preserve">
     <value>Начало</value>
   </data>
+  <data name="strInvalidEmail" xml:space="preserve">
+    <value>Невалиден  емейл</value>
+  </data>
   <data name="strKm" xml:space="preserve">
     <value>км</value>
   </data>

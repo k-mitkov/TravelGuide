@@ -34,7 +34,7 @@ namespace TravelGuide.ClassLibrary.Models
 
             set => landmark = value;
         }
-
+        
         public byte[] Image
         {
             get => image;

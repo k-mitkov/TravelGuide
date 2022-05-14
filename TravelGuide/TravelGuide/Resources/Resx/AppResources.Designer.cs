@@ -142,6 +142,15 @@ namespace TravelGuide.Resources.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid email.
+        /// </summary>
+        internal static string strInvalidEmail {
+            get {
+                return ResourceManager.GetString("strInvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to km.
         /// </summary>
         internal static string strKm {

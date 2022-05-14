@@ -133,6 +133,11 @@ namespace TravelGuide.Database.Repositories
 
         }
 
+        public async Task MigrateDatabase()
+        {
+            await database.Database.MigrateAsync();
+        }
+
         #endregion
     }
 }

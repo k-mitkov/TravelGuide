@@ -7,6 +7,7 @@
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:b="clr-namespace:TravelGuide.Converters"
              ios:Page.UseSafeArea="true">
 
     <Shell.TitleView>
@@ -16,6 +17,10 @@
             Text="{toolkit:Translate strAddNewLandmark}"
             TextColor="{DynamicResource WhiteTextColor}" />
     </Shell.TitleView>
+
+    <ContentPage.Behaviors>
+        <b:EventToCommandBehavior Command="{Binding OnAppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
 
     <ContentPage.Content>
         <StackLayout
@@ -30,14 +35,6 @@
                                BackgroundColor="{DynamicResource MainBackgroundColor}"
                                BorderColor="{DynamicResource AccentColor}">
                 <Grid ColumnSpacing="10">
-                    <!--<Image
-                                        Margin="5"
-                                        Aspect="AspectFit"
-                                        HorizontalOptions="FillAndExpand"
-                                        Source="Resources/uploadimageicon.jpg"
-                                        WidthRequest="100"
-                                        HeightRequest="100"
-                                        VerticalOptions="FillAndExpand"/>-->
                     <Image Margin="5" VerticalOptions="CenterAndExpand" Aspect="AspectFit">
                         <Image.Source>
                             <FontImageSource
@@ -51,12 +48,12 @@
                                         Margin="5"
                                         Aspect="AspectFill"
                                         HorizontalOptions="FillAndExpand"
-                                        Source=""
+                                        Source="{Binding UplodedImage}"
                                         WidthRequest="100"
                                         HeightRequest="100"
                                         VerticalOptions="FillAndExpand"/>
-                    
-                    <Button Text="{toolkit:Translate strUploadPhoto}" Command="{Binding CancelCommand}" Style="{DynamicResource Key=SaveButton}" HorizontalOptions="FillAndExpand"/>
+
+                    <Button Text="{toolkit:Translate strUploadPhoto}" Command="{Binding UploadCommand}" Style="{DynamicResource Key=SaveButton}" HorizontalOptions="FillAndExpand"/>
                 </Grid>
                 
             </Frame>
@@ -80,7 +77,7 @@
                             HorizontalOptions="FillAndExpand"
                             Placeholder="{toolkit:Translate strName}"
                             Style="{StaticResource entryStyle}"
-                            Text="{Binding Username, Mode=TwoWay}" />
+                            Text="{Binding Name, Mode=TwoWay}" />
 
                 </StackLayout>
 
@@ -107,7 +104,7 @@
                         
                             Placeholder="{toolkit:Translate strDescription}"
                             Style="{StaticResource entryStyle}"
-                            Text="{Binding Password, Mode=TwoWay}" />
+                            Text="{Binding Description, Mode=TwoWay}" />
 
                 </Grid>
             </Frame>

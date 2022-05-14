@@ -20,20 +20,20 @@
             Grid.Row="0"
             Aspect="AspectFill"
             HorizontalOptions="FillAndExpand"
-            Source="Resources/s.jpg"
+            Source="{Binding Landmark.Image}"
             VerticalOptions="FillAndExpand"/>
         <Grid Grid.Row="1" RowDefinitions="auto,5*,*" Margin="0">
             <StackLayout Margin="5,0" VerticalOptions="FillAndExpand" Grid.Row="0" Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Златните Мостове" FontAttributes="Bold" TextColor="{DynamicResource DynamicTextColor}"/>
+                    <Label Text="{Binding Landmark.Name}" FontAttributes="Bold" TextColor="{DynamicResource DynamicTextColor}"/>
                     <Label Text="6,7км" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" TextColor="{DynamicResource DynamicTextColor}"/>
                 </StackLayout>
-                <Label Margin="0" TextColor="{DynamicResource DynamicTextColor}" Text="Златните мостове е един от популярните планински туристически обекти и красиви места за отдих около София. Златни мостове се намират в природен парк Витоша в средното течение на Владайска река и е само на около 20 км от София. Впечатляващи са огромните овални морени по коритото на реката. Местността е чудесно начало за множество разходки сред природата или за пикник в събота и неделя."/>
+                <Label Margin="0" TextColor="{DynamicResource DynamicTextColor}" Text="{Binding Landmark.Description}"/>
             </StackLayout>
             <CollectionView
                 Grid.Row="1"
                 HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding Comments}">
+                ItemsSource="{Binding Comments, Mode=TwoWay}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                     <Grid Padding="5">
@@ -57,7 +57,7 @@
                             Placeholder="{toolkit:Translate strWriteComment}"
                             Style="{StaticResource entryStyle}"
                             Text="{Binding NewComment, Mode=TwoWay}" />
-                <Button Grid.Column="1" Command="{Binding AddComment}">
+                <Button Grid.Column="1" Command="{Binding AddCommentCommand}">
                     <Button.ImageSource>
                         <FontImageSource
                                     FontFamily="materialdesignicons-webfont"

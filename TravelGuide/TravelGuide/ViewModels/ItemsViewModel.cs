@@ -78,7 +78,7 @@ namespace TravelGuide.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(LandmarkDetailPage)}?{nameof(LandmarkDetailViewModel.ItemId)}={item.Id}");
+            //await Shell.Current.GoToAsync($"{nameof(LandmarkDetailPage)}?{nameof(LandmarkDetailViewModel.ItemId)}={item.Id}");
         }
     }
 }

@@ -71,7 +71,7 @@ namespace TravelGuide.ViewModels
             mediaTypeJson = new MediaTypeWithQualityHeaderValue("application/json");
 
             client = new HttpClient(clientHandler);
-            client.BaseAddress = new Uri("https://192.168.0.102:5001/api/landmark/");
+            client.BaseAddress = new Uri("https://192.168.1.3:5001/api/landmark/");
             client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
 
             var response = await client.PostAsJsonAsync("Post", landmark);
@@ -112,7 +112,7 @@ namespace TravelGuide.ViewModels
             mediaTypeJson = new MediaTypeWithQualityHeaderValue("application/json");
 
             client = new HttpClient(clientHandler);
-            client.BaseAddress = new Uri("https://192.168.0.102:5001/api/user/");
+            client.BaseAddress = new Uri("https://192.168.1.3:5001/api/user/");
             client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
 
             var response = await client.PostAsJsonAsync("Register", user);
@@ -141,7 +141,7 @@ namespace TravelGuide.ViewModels
 
                 // За избиране на твой адрес виж Program в TravelGuide.WebApi проекта. Също и connectionString-ът в проекта с базата трябва да промениш.
                 //Вместо landmark, може да са user и comment, за да се извикат другите контролери от API-ът.
-                client.BaseAddress = new Uri("https://192.168.0.102:5001/api/landmark/");
+                client.BaseAddress = new Uri("https://192.168.1.3:5001/api/landmark/");
                 client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
 
                 var response3 = await client.GetAsync("GetAll");

@@ -1,8 +1,10 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using TravelGuide.ClassLibrary.Models;
+using Xamarin.Forms;
 
 namespace TravelGuide.Wrappers
 {
@@ -29,10 +31,9 @@ namespace TravelGuide.Wrappers
 
         public string Description => Settings.Settings.Lenguage == Enums.LanguageEnum.Български ? landmark.Landmark.Description1 : landmark.Landmark.Description2;
 
-        //public Bitmap Image => landmark.Image;
+        public ImageSource Image => ImageSource.FromStream(() => new MemoryStream(landmark.Image));
 
-        public string Image { get; set; }
-
+        public LandmarkWrapper landmarkwrapper => landmark;
 
         #endregion
     }

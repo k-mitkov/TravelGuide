@@ -57,11 +57,11 @@ namespace TravelGuide.Converters
         {
             if (!string.IsNullOrWhiteSpace(e.NewTextValue) && !regexPattern.IsMatch(e.NewTextValue))
             {
-                AssociatedObject.PlaceholderColor = Color.Red;
+                ((Entry)sender).PlaceholderColor = Color.Red;
                 return;
             }
 
-            AssociatedObject.PlaceholderColor = DefaultColor;
+            ((Entry)sender).PlaceholderColor = DefaultColor;
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ using TravelGuide.Resources.Themes;
 using TravelGuide.Services;
 using TravelGuide.Views;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,6 +23,7 @@ namespace TravelGuide
 
             SetLanguage();
             SetTheme();
+
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();

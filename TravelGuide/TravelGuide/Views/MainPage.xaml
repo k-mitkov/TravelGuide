@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:TravelGuide.ViewModels"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:b="clr-namespace:TravelGuide.Converters"
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              x:Class="TravelGuide.Views.MainPage">
 
@@ -17,14 +18,19 @@
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
-    
+
+    <ContentPage.Behaviors>
+        <b:EventToCommandBehavior Command="{Binding OnAppearingCommand}" EventName="Appearing" />
+        <b:EventToCommandBehavior Command="{Binding OnDisappearinggCommand}" EventName="Disappearing" />
+    </ContentPage.Behaviors>
+
     <ContentPage.Content>
-        <Grid>
+        <Grid IsEnabled="{Binding IsBusy, Converter={StaticResource oppositeConverter}}">
             <CollectionView
                 HorizontalOptions="FillAndExpand"
-                ItemsSource="{Binding Landmars}"
+                ItemsSource="{Binding Landmarks}"
                 SelectionMode="Single"
-                SelectedItem="{Binding SelectedLandmars}">
+                SelectedItem="{Binding SelectedLandmark}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="5"
@@ -65,6 +71,8 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            
+            <ActivityIndicator IsRunning="{Binding IsBusy}" Style="{StaticResource ActivityIndicatorStyle}" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

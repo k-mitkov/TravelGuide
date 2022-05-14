@@ -4,10 +4,15 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              xmlns:vm="clr-namespace:TravelGuide.ViewModels"
              xmlns:h="clr-namespace:TravelGuide.Helpers"
+             xmlns:b="clr-namespace:TravelGuide.Converters"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              x:Class="TravelGuide.Views.RegisterPage"
              Shell.NavBarIsVisible="False">
 
+    <ContentPage.Behaviors>
+        <b:EventToCommandBehavior Command="{Binding OnAppearingCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    
     <ContentPage.BindingContext>
         <vm:RegisterViewModel/>
     </ContentPage.BindingContext>
@@ -71,7 +76,11 @@
                             HorizontalOptions="FillAndExpand"
                             Placeholder="{toolkit:Translate strEmail}"
                             Style="{StaticResource entryStyle}"
-                            Text="{Binding Email, Mode=TwoWay}" />
+                            Text="{Binding Email,Mode=TwoWay}">
+                            <Entry.Behaviors>
+                                <b:EmailEntryValidatorBehavior />
+                            </Entry.Behaviors>
+                        </Entry>
 
                     </StackLayout>
 
