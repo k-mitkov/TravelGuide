@@ -54,7 +54,7 @@ namespace TravelGuide.Views
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
                 cts = new CancellationTokenSource();
-                var location = await Geolocation.GetLocationAsync(request, cts.Token);
+                Settings.Settings.Location = await Geolocation.GetLocationAsync(request, cts.Token);
                 
             }
             catch (Exception ex)

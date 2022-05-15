@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TravelGuide.ClassLibrary.Models;
 using TravelGuide.Database.Entities;
 using TravelGuide.Helpers;
 using TravelGuide.Intefaces;
-using TravelGuide.Models;
+using TravelGuide.Resources.Resx;
 using TravelGuide.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -97,45 +95,59 @@ namespace TravelGuide.ViewModels
 
         private async void OnSave()
         {
-
-            Task.Run(async () => await CreateLandmark());
-
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            IsBusy = true;
+            await CreateLandmark();
         }
 
         private async Task CreateLandmark()
         {
-            byte[] imageBytes = this.imageBytes;
-
-
-            var landmark = new LandmarkWrapper()
+            try
             {
-                Landmark = new Landmark()
+                byte[] imageBytes = this.imageBytes;
+
+
+                var landmark = new LandmarkWrapper()
                 {
-                    Name1 = Name,
-                    Name2 = Name,
-                    Description1 = Description,
-                    Description2 = Description,
-                    Latitude = (decimal)(Settings.Settings.Location != null ? Settings.Settings.Location.Latitude : -1),
-                    Longitude = (decimal)(Settings.Settings.Location != null ? Settings.Settings.Location.Longitude : -1)
-                },
-                Image = imageBytes
-            };
+                    Landmark = new Landmark()
+                    {
+                        Name1 = Name,
+                        Name2 = Name,
+                        Description1 = Description,
+                        Description2 = Description,
+                        Latitude = (decimal)(Settings.Settings.Location != null ? Settings.Settings.Location.Latitude * 10000000000000 : -1),
+                        Longitude = (decimal)(Settings.Settings.Location != null ? Settings.Settings.Location.Longitude * 10000000000000 : -1)
+                    },
+                    Image = imageBytes
+                };
 
-            HttpClient client;
-            MediaTypeWithQualityHeaderValue mediaTypeJson;
-            HttpClientHandler clientHandler;
+                HttpClient client;
+                MediaTypeWithQualityHeaderValue mediaTypeJson;
+                HttpClientHandler clientHandler;
 
-            clientHandler = new HttpClientHandler();
-            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+                clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
-            mediaTypeJson = new MediaTypeWithQualityHeaderValue("application/json");
+                mediaTypeJson = new MediaTypeWithQualityHeaderValue("application/json");
 
-            client = new HttpClient(clientHandler);
-            client.BaseAddress = new Uri(AppConstands.Url + "/api/landmark/");
-            client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
+                client = new HttpClient(clientHandler);
+                client.BaseAddress = new Uri(AppConstands.Url + "/api/landmark/");
+                client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
 
-            var response = await client.PostAsJsonAsync("Post", landmark);
+                var response = await client.PostAsJsonAsync("Post", landmark);
+
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            }
+            catch
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Resolve<IMessage>().LongAlert(AppResources.strNoConnection);
+                });
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

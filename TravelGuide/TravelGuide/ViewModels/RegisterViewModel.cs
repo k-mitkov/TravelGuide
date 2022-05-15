@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using TravelGuide.Intefaces;
 using TravelGuide.Resources.Resx;
@@ -82,7 +85,7 @@ namespace TravelGuide.ViewModels
         /// <summary>
         /// Команда за вход
         /// </summary>
-        public ICommand LoginCommand => loginCommand ?? (loginCommand = new ExtendedCommand(Login));
+        public ICommand LoginCommand => loginCommand ?? (loginCommand = new ExtendedCommand(async() => await Register()));
 
         ///// <summary>
         ///// Команда при показване на екрана
@@ -219,16 +222,53 @@ namespace TravelGuide.ViewModels
         /// Валидира потребителя и извършва вход в приложението
         /// </summary>
         /// <param name="obj"></param>
-        private async void Login(object obj)
+        private async Task Register()
         {
             if (!Validate())
             {
                 return;
             }
 
-            Settings.Settings.LoggedUserId = 1;
+            var user = new User()
+            {
+                Username = Username,
+                Password = Password,
+                Email = Email,
 
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            };
+
+            try
+            {
+                HttpClient client;
+                MediaTypeWithQualityHeaderValue mediaTypeJson;
+                HttpClientHandler clientHandler;
+
+                clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+                mediaTypeJson = new MediaTypeWithQualityHeaderValue("application/json");
+
+                client = new HttpClient(clientHandler);
+                client.BaseAddress = new Uri(AppConstands.Url + "/api/user/");
+                client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
+
+                var response = await client.PostAsJsonAsync("Register", user);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var newUser = await response.Content.ReadAsAsync<User>();
+
+                    Settings.Settings.LoggedUserId = newUser.Id.Value;
+                    Settings.Settings.LoggedUser = newUser.Username;
+
+                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                }
+            }
+            catch
+            {
+                DependencyService.Resolve<IMessage>().LongAlert(AppResources.strNoConnection);
+            }
+
         }
 
         /// <summary>

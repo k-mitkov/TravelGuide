@@ -143,7 +143,7 @@
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
 
-    <FlyoutItem Title="ImageTest">
+    <!--<FlyoutItem Title="ImageTest">
         <FlyoutItem.Icon>
             <FontImageSource
                                     FontFamily="materialdesignicons-webfont"
@@ -152,7 +152,7 @@
                                     Color="{DynamicResource DynamicTextColor}" />
         </FlyoutItem.Icon>
         <ShellContent Route="ImageTestPage" ContentTemplate="{DataTemplate local:ImageTestPage}" />
-    </FlyoutItem>
+    </FlyoutItem>-->
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem Text="{toolkit:Translate strLogout}" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">

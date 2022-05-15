@@ -147,6 +147,9 @@
   <data name="strInvalidEmail" xml:space="preserve">
     <value>Невалиден  емейл</value>
   </data>
+  <data name="strInvalidUsernameOrPassword" xml:space="preserve">
+    <value>Невалиден потребител или парола</value>
+  </data>
   <data name="strKm" xml:space="preserve">
     <value>км</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="strName" xml:space="preserve">
     <value>Име</value>
+  </data>
+  <data name="strNoConnection" xml:space="preserve">
+    <value>Няма връзка със сървъра!</value>
   </data>
   <data name="strPassword" xml:space="preserve">
     <value>Парола</value>

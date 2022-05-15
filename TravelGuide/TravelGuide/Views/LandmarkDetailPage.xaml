@@ -4,7 +4,8 @@
              x:Class="TravelGuide.Views.LandmarkDetailPage"
              xmlns:toolkit="http://xamarin.com/schemas/2020/toolkit"
              xmlns:h="clr-namespace:TravelGuide.Helpers"
-             BackgroundColor="{DynamicResource PageBackgroundColor}">
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             >
 
     <Shell.TitleView>
         <Label
@@ -14,7 +15,7 @@
             TextColor="{DynamicResource WhiteTextColor}" />
     </Shell.TitleView>
 
-    <Grid RowDefinitions="*,2.5*" RowSpacing="10">
+    <Grid RowDefinitions="*,2.5*" RowSpacing="10" IsEnabled="{Binding IsBusy, Converter={StaticResource oppositeConverter}}">
         <Image
             Margin="0"
             Grid.Row="0"
@@ -26,7 +27,7 @@
             <StackLayout Margin="5,0" VerticalOptions="FillAndExpand" Grid.Row="0" Orientation="Vertical">
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{Binding Landmark.Name}" FontAttributes="Bold" TextColor="{DynamicResource DynamicTextColor}"/>
-                    <Label Text="6,7км" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" TextColor="{DynamicResource DynamicTextColor}"/>
+                    <Label Text="{Binding Landmark.Distance, Converter={StaticResource distanceConverter}}" HorizontalOptions="EndAndExpand" Margin="0,0,10,0" TextColor="{DynamicResource DynamicTextColor}"/>
                 </StackLayout>
                 <Label Margin="0" TextColor="{DynamicResource DynamicTextColor}" Text="{Binding Landmark.Description}"/>
             </StackLayout>
@@ -42,8 +43,8 @@
                                BackgroundColor="{DynamicResource MainBackgroundColor}"
                                BorderColor="{DynamicResource AccentColor}">
                             <StackLayout VerticalOptions="CenterAndExpand" Grid.Column="1" Orientation="Vertical">
-                                <Label Text="{Binding Writer}" FontAttributes="Bold" TextColor="{DynamicResource DynamicTextColor}"/>
-                                <Label Margin="0" TextColor="{DynamicResource DynamicTextColor}" Text="{Binding CommentText}"/>
+                                <Label Text="{Binding Username}" FontAttributes="Bold" TextColor="{DynamicResource DynamicTextColor}"/>
+                                <Label Margin="0" TextColor="{DynamicResource DynamicTextColor}" Text="{Binding Comment.Content}"/>
                             </StackLayout>
                         </Frame>
                         </Grid>
@@ -68,6 +69,7 @@
                 </Button>
             </Grid>
         </Grid>
+        <ActivityIndicator Grid.RowSpan="2" IsRunning="{Binding IsBusy}" Style="{StaticResource ActivityIndicatorStyle}" />
     </Grid>
     
 </ContentPage>

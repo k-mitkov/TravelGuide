@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TravelGuide.ClassLibrary.Models;
 using TravelGuide.Converters;
+using TravelGuide.Intefaces;
+using TravelGuide.Resources.Resx;
 using TravelGuide.Services;
 using TravelGuide.Views;
 using TravelGuide.Wrappers;
@@ -111,8 +113,7 @@ namespace TravelGuide.ViewModels
 
         public MainViewModel()
         {
-            IsBusy = true;
-            Task.Run(async () => await GetLandmark());
+            
         }
 
         #endregion
@@ -134,6 +135,8 @@ namespace TravelGuide.ViewModels
         /// <param name="obj"></param>
         private void OnAppearing(object obj)
         {
+            IsBusy = true;
+            Task.Run(async () => await GetLandmark());
         }
 
         private async Task GetLandmark()
@@ -164,12 +167,17 @@ namespace TravelGuide.ViewModels
                     var tempLandmarks = await response3.Content.ReadAsAsync<List<LandmarkWrapper>>();
 
                     Landmarks = tempLandmarks.Select(t => new ExtendedLandmarkWrapper(t)).ToList();
+                    Landmarks.Sort((x, y) => x.Distance.CompareTo(y.Distance));
                     IsBusy = false;
                 }
             }
             catch (Exception ex)
             {
-
+                IsBusy = false;
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Resolve<IMessage>().LongAlert(AppResources.strNoConnection);
+                });
             }
         }
 

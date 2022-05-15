@@ -9,12 +9,12 @@ namespace TravelGuide.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (value == null || (double)value == double.MaxValue)
             {
                 return "";
             }
             double distance = (double)value;
-            return distance + AppResources.ResourceManager.GetString("strKm");
+            return Math.Round(distance, 2) + AppResources.ResourceManager.GetString("strKm");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

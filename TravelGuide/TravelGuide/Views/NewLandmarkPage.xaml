@@ -8,7 +8,8 @@
              BackgroundColor="{DynamicResource PageBackgroundColor}"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:b="clr-namespace:TravelGuide.Converters"
-             ios:Page.UseSafeArea="true">
+             ios:Page.UseSafeArea="true"
+             IsEnabled="{Binding IsBusy, Converter={StaticResource oppositeConverter}}">
 
     <Shell.TitleView>
         <Label

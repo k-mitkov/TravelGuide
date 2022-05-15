@@ -151,6 +151,15 @@ namespace TravelGuide.Resources.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid username or password.
+        /// </summary>
+        internal static string strInvalidUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("strInvalidUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to km.
         /// </summary>
         internal static string strKm {
@@ -201,6 +210,15 @@ namespace TravelGuide.Resources.Resx {
         internal static string strName {
             get {
                 return ResourceManager.GetString("strName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No connection to server!.
+        /// </summary>
+        internal static string strNoConnection {
+            get {
+                return ResourceManager.GetString("strNoConnection", resourceCulture);
             }
         }
         

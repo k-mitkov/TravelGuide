@@ -29,7 +29,7 @@ namespace TravelGuide.WebApi.Controllers
         }
 
         [HttpGet("GetCommentWithUsername/{landmarkId}")]
-        public async Task<ActionResult<CommentWrapper>> GetCommentWithUsername([FromRoute] int landmarkId)
+        public async Task<ActionResult<List<CommentWrapper>>> GetCommentWithUsername([FromRoute] int landmarkId)
         {
             try
             {

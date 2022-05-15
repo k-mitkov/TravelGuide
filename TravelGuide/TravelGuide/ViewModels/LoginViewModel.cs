@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,21 +21,6 @@ namespace TravelGuide.ViewModels
     {
 
         #region Declarations
-
-        ///// <summary>
-        ///// Хелпър за показване на съобшения
-        ///// </summary>
-        //private readonly IAlert alert;
-
-        ///// <summary>
-        ///// Помощен клас за потребителите в базата
-        ///// </summary>
-        //private readonly IUsersHelper usersHelper;
-
-        ///// <summary>
-        ///// Клас за запис на грешки
-        ///// </summary>
-        //private readonly IErrorLogger errorLogger;
 
         /// <summary>
         /// избрания потребител
@@ -182,6 +169,7 @@ namespace TravelGuide.ViewModels
         {
 
             Settings.Settings.LoggedUserId = -1;
+            Settings.Settings.LoggedUser = "Admin";
             Username = null;
             Password = null;
         }
@@ -215,50 +203,58 @@ namespace TravelGuide.ViewModels
                 return;
             }
 
-            Settings.Settings.LoggedUserId = 1;
+            var user = new User()
+            {
+                Username = Username,
+                Password = Password,
+            };
 
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            try
+            {
+                HttpClient client;
+                MediaTypeWithQualityHeaderValue mediaTypeJson;
+                HttpClientHandler clientHandler;
 
-            //try
-            //{
-            //    IsBusy = true;
+                clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
-            //    if (Password == usersHelper.GetTemporaryServicePassword())
-            //    {
-            //        SettingsManager.LoggedUserID = 1;
-            //        SettingsManager.IsLoggedIn = true;
-            //        NavigateToMainScreen();
-            //    }
-            //    else if (SelectedUser.Password == CryptoHelper.Encrypt(Password.Equals(string.Empty) ? " " : Password))
-            //    {
-            //        SettingsManager.LoggedUserID = SelectedUser.Id.Value;
-            //        SettingsManager.IsLoggedIn = true;
-            //        NavigateToMainScreen();
-            //    }
-            //    else
-            //    {
-            //        await alert.ShowWarningAsync(AppResources.strInvalidPassword);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    await errorLogger.LogException(ex);
-            //}
-            //finally
-            //{
-            //    IsBusy = false;
-            //}
+                mediaTypeJson = new MediaTypeWithQualityHeaderValue("application/json");
+
+                client = new HttpClient(clientHandler);
+                client.BaseAddress = new Uri(AppConstands.Url + "/api/user/");
+                client.DefaultRequestHeaders.Accept.Add(mediaTypeJson);
+
+                var response = await client.PostAsJsonAsync("Login", user);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var logedUser = await response.Content.ReadAsAsync<User>();
+
+                    if (logedUser != null)
+                    {
+                        Settings.Settings.LoggedUserId = logedUser.Id.Value;
+                        Settings.Settings.LoggedUser = logedUser.Username;
+
+                        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                    }
+                    else
+                    {
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            DependencyService.Resolve<IMessage>().LongAlert(AppResources.strInvalidUsernameOrPassword);
+                        });
+                    }
+                }
+            }
+            catch
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Resolve<IMessage>().LongAlert(AppResources.strNoConnection);
+                });
+            }
         }
 
-        /// <summary>
-        /// Навигира към началния екран
-        /// </summary>
-        private async void NavigateToMainScreen()
-        {
-            MessagingCenter.Send(this, "ChangedUser");
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-        }
 
         private async void NavigateToRegisterScreen(object _)
         {

@@ -5,6 +5,8 @@ namespace TravelGuide.Settings
 {
     public static class Settings
     {
+        private static Location location;
+
         public static string LogKey
         {
             get
@@ -53,6 +55,28 @@ namespace TravelGuide.Settings
             }
         }
 
-        public static Location Location { get; set; }
+        public static string LoggedUser
+        {
+            get
+            {
+                return Preferences.Get(nameof(LoggedUser), "Admin");
+            }
+            set
+            {
+                Preferences.Set(nameof(LoggedUser), value);
+            }
+        }
+
+        public static Location Location
+        {
+            get
+            {
+                return location;
+            }
+            set
+            {
+                location = value;
+            }
+        }
     }
 }
